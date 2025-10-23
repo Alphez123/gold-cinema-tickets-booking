@@ -262,9 +262,9 @@ footer {
 }
 
 .menu-btn {
-  position: fixed;
-  margin-top: 0px;
-  top: 15px;
+  position: relative;
+  margin-bottom: 30px;
+  top: 20px;
   right: 20px;
   font-size: 26px;
   cursor: pointer;
