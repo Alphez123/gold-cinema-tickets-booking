@@ -247,7 +247,7 @@ footer {
 .notification-item {
   position: relative;
   list-style: none;
-  margin-left: 2em;
+  margin-left: 3em;
   display: flex;
   align-items: center;
 }
