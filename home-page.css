@@ -154,7 +154,7 @@ nav ul li .login-btn:hover {
 /* 🎞 NOW SHOWING SECTION */
 #movies {
   padding: 6em 10%;
-  background: rgba(26, 0, 101, 0.8);
+  background: none;
   z-index: 2;
   position: relative;
 }
