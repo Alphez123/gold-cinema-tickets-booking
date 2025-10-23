@@ -20,7 +20,7 @@ body {
   right: 20px;
   font-size: 30px;
   cursor: pointer;
-  background: #3498db;
+  background: linear-gradient(45deg, #7a33ff, #3a00b5);;
   color: white;
   border-radius: 8px;
   padding: 8px 12px;
@@ -28,7 +28,7 @@ body {
   transition: background 0.3s ease;
 }
 .menu-btn:hover {
-  background: #2980b9;
+  background: 2px solid #3498db;
 }
 
 /* Sidebar (hidden by default) */
