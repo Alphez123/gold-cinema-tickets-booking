@@ -227,7 +227,81 @@ footer {
   z-index: 100;
 }
 
+.menu-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 26px;
+  cursor: pointer;
+  background: linear-gradient(45deg, #7a33ff, #3a00b5);;
+  color: white;
+  border-radius: 8px;
+  padding: 8px 12px;
+  z-index: 9999;
+  transition: background 0.3s ease;
+}
+.menu-btn:hover {
+  background: 2px solid #3498db;
+}
 
+/* Sidebar (hidden by default) */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px; /* hidden */
+  width: 250px;
+  height: 100%;
+  background: linear-gradient(45deg, #7a33ff, #3a00b5);;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 20px;
+  transition: left 0.3s ease;
+  z-index: 9998;
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  padding: 12px 0;
+  font-size: 18px;
+  transition: 0.3s;
+}
+.sidebar a:hover {
+  color: #3498db;
+  padding-left: 10px;
+}
+
+/* Overlay (dark background when menu opens) */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s ease;
+  z-index: 1000;
+}
+
+/* Active states */
+.sidebar.active {
+  left: 0;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
 /* 🔔 NOTIFICATION STYLES */
 .nav-icon-btn {
   background: none;
