@@ -188,6 +188,20 @@ nav ul li .login-btn:hover {
   margin-bottom: 1.5em;
   text-shadow: 0 0 20px #7a33ff;
 }
+#concerts {
+  padding: 6em 10%;
+  background: none;
+  z-index: 2;
+  position: relative;
+}
+
+#concerts h2 {
+  text-align: center;
+  font-size: 2.5em;
+  color: #c9a6ff;
+  margin-bottom: 1.5em;
+  text-shadow: 0 0 20px #7a33ff;
+}
 
 .movie-grid {
   display: grid;
