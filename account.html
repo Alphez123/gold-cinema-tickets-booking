@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Gold Cinema</title>
+    <link rel="stylesheet" href="account.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<body>
+    <div class="account-container">
+        <h1>My Account</h1>
+
+        <div id="userInfo" class="user-info-card">
+            
+            <div class="info-group">
+                <i class="fas fa-fingerprint icon"></i>
+                <p><strong>Customer ID:</strong> <span id="customerId">Loading...</span></p>
+            </div>
+            
+            <div class="info-group">
+                <i class="fas fa-user icon"></i>
+                <p><strong>Name:</strong> <span id="userName">Loading...</span></p>
+            </div>
+            
+            <div class="info-group">
+                <i class="fas fa-envelope icon"></i>
+                <p><strong>Email:</strong> <span id="userEmail">Loading...</span></p>
+            </div>
+            
+            <div class="info-group">
+                <i class="fas fa-phone icon"></i>
+                <p><strong>Phone:</strong> <span id="userPhone">Loading...</span></p>
+            </div>
+            
+            <div class="info-group" style="border-bottom: none;">
+                <i class="fas fa-map-marker-alt icon"></i>
+                <p><strong>Address:</strong> <span id="userAddress">Loading...</span></p>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button onclick="goHome()" class="btn-primary"> Back </button>
+            <button onclick="logout()" class="btn-secondary"> Logout</button>
+        </div>
+
+        <div class="deletion-section">
+            <button id="deleteAccountBtn" class="btn-delete">
+                <i class="fas fa-trash-alt"></i> Delete Account
+            </button>
+            <p class="warning-text">⚠️ Warning: Account deletion is permanent and cannot be undone.</p>
+        </div>
+    </div>
+
+    <script>
+        // Check for login status
+        const loggedInEmail = localStorage.getItem("loggedInUser");
+        if (!loggedInEmail) {
+            alert("You must log in first!");
+            window.location.href = "login.html";
+        } else {
+            // Retrieve the full user data using the email key
+            const userData = localStorage.getItem("user_" + loggedInEmail);
+            
+            if (userData) {
+                const user = JSON.parse(userData);
+                
+                // Display all retrieved user details
+                document.getElementById("customerId").textContent = user.customerId || "N/A";
+                document.getElementById("userName").textContent = `${user.firstName} ${user.lastName}` || "N/A";
+                document.getElementById("userEmail").textContent = user.email || "N/A";
+                document.getElementById("userPhone").textContent = user.phone || "N/A"; 
+                document.getElementById("userAddress").textContent = user.address || "N/A";
+            } else {
+                document.getElementById("userInfo").innerHTML = "<p>User data not found! Please re-login.</p>";
+            }
+        }
+
+        // Navigation Functions
+        function goHome() {
+            window.location.href = "home-page.html";
+        }
+
+        function logout() {
+            localStorage.removeItem("loggedInUser");
+            alert("You have been logged out.");
+            window.location.href = "login.html";
+        }
+
+        // Account Deletion Logic
+        document.getElementById("deleteAccountBtn").addEventListener("click", function() {
+            const userEmail = loggedInEmail;
+            
+            // Confirmation prompt
+            const confirmation = confirm("Are you absolutely sure you want to delete your account? This action cannot be undone.");
+
+            if (confirmation) {
+                // Remove the user's data (the user_email key)
+                localStorage.removeItem("user_" + userEmail);
+                
+                // Remove the login status
+                localStorage.removeItem("loggedInUser");
+
+                alert("Your account has been successfully deleted. Goodbye!");
+                
+                // Redirect to the registration/landing page
+                window.location.href = "registration.html";
+            } else {
+                alert("Account deletion cancelled.");
+            }
+        });
+
+         document.addEventListener('DOMContentLoaded', () => {
+    const chatTab = document.getElementById('chatTab');
+    const chatWindow = document.getElementById('chatWindow');
+    const closeChatBtn = document.getElementById('closeChatBtn');
+    const chatBody = document.getElementById('chatBody');
+    const chatInput = document.getElementById('chatInput');
+    const chatSendBtn = document.getElementById('chatSendBtn');
+    
+    // --- 1. Toggle Chat Window Functionality ---
+    const toggleChatWindow = () => {
+        // Adds or removes the 'visible' class to show/hide the window
+        chatWindow.classList.toggle('visible');
+        
+        if (chatWindow.classList.contains('visible')) {
+            chatInput.focus();
+        }
+    };
+
+    // Attach the toggle function to the floating icon and the close button
+    chatTab.addEventListener('click', toggleChatWindow);
+    closeChatBtn.addEventListener('click', toggleChatWindow);
+
+    
+    // --- 2. Chat Functionality (Fixed Response Logic) ---
+    const handleUserInput = () => {
+        const userText = chatInput.value.trim();
+        if (userText === '') return;
+
+        // Display user message
+        // ... (code to create user message div) ...
+
+        chatInput.value = '';
+
+        // Generate fixed bot response after a short delay
+        setTimeout(() => {
+            const botResponse = "Contact 0712345678 for more info.";
+            // ... (code to create bot message div) ...
+            
+            // Auto-scroll to the bottom
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }, 500);
+        
+        chatBody.scrollTop = chatBody.scrollHeight;
+    };
+
+    // Send button click and Enter key press listeners
+    chatSendBtn.addEventListener('click', handleUserInput);
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            handleUserInput();
+        }
+    });
+});
+    </script>
+    
+<div class="chatbot-container">
+    <button id="chatTab" class="chat-tab-btn" title="Advisor Support">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+    
+    <div id="chatWindow" class="chat-window">
+        <div class="chat-header">
+            <h3>Advisor Support</h3>
+            <button id="closeChatBtn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-message bot-message">
+                How may I help you?
+            </div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Type a message..." />
+            <button id="chatSendBtn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

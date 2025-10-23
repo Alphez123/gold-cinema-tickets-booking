@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gold Cinema - Home</title>
+  <link rel="stylesheet" href="home-page.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+</head>
+<body>
+  <canvas id="background"></canvas>
+
+  <!-- 🧭 Navbar -->
+  <nav>
+    <div class="logo">🎬 Gold Cinema</div>
+  
+  <ul>
+        <li class="notification-item">
+            <button id="notificationBtn" class="nav-icon-btn">
+                <i class="fas fa-bell"></i>
+                <span id="notificationCount" class="badge">0</span>
+            </button>
+            <div id="notificationDropdown" class="dropdown-content">
+                <p class="dropdown-header">Notifications</p>
+                <div id="notificationList">
+                    <p class="empty-message">No new notifications.</p>
+                </div>
+            </div>
+        </li>
+        </ul></nav>
+
+  <!-- 🎥 Hero Section -->
+  <section id="hero" class="hero">
+    <h1>Welcome to Gold Cinema</h1>
+    <p>Experience movies, plays, and concerts like never before — luxury, sound, and the magic of the big screen.</p>
+    <button class="button" onclick="window.location.href='login.html'">Login or Register</button>
+
+
+  <footer>
+    © 2025 Gold Cinema. All rights reserved.
+  </footer>
+
+  <!-- ✅ Always load JS at the bottom so the button exists before JS runs -->
+<script>
+    // Wait for the page to fully load before running
+document.addEventListener("DOMContentLoaded", () => {
+  // --- 1. Login/Registration Button Logic ---
+  const loginButton = document.querySelector(".hero button"); // Select the button in the hero section
+
+  if (!loginButton) {
+    console.error("Login button not found!");
+  } else {
+    // Check login status (Note: Your original HTML uses an onclick attribute, 
+    // so this JS event listener might not be necessary unless you want more complex login logic.)
+    loginButton.addEventListener("click", () => {
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      if (isLoggedIn) {
+        window.location.href = "home.html";
+      } else {
+        window.location.href = "login.html";
+      }
+    });
+  }
+
+
+  // =======================================================
+  // 🔔 NEW: NOTIFICATION LOGIC (REQUIRED FOR FUNCTIONALITY)
+  // =======================================================
+  const notificationBtn = document.getElementById('notificationBtn');
+  const notificationDropdown = document.getElementById('notificationDropdown');
+  const notificationCount = document.getElementById('notificationCount');
+  const notificationList = document.getElementById('notificationList');
+  
+  let notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+  let unreadCount = notifications.filter(n => n.read === false).length;
+
+  // Function to render the notifications and update the badge
+  const updateNotificationsUI = () => {
+    unreadCount = notifications.filter(n => n.read === false).length;
+    notificationCount.textContent = unreadCount;
+    notificationCount.style.display = unreadCount > 0 ? 'inline-block' : 'none';
+
+    if (notifications.length === 0) {
+      notificationList.innerHTML = '<p class="empty-message">No new notifications.</p>';
+      return;
+    }
+
+    // Build the list content
+    notificationList.innerHTML = '';
+    notifications.forEach((notification, index) => {
+      const item = document.createElement('div');
+      item.className = `notification-item-content ${!notification.read ? 'unread' : 'read'}`;
+      item.innerHTML = `
+        <span class="notification-text">${notification.message}</span>
+        <button class="archive-btn" data-index="${index}" ${notification.read ? '' : 'disabled'}>Archive</button>
+      `;
+      notificationList.appendChild(item);
+    });
+    localStorage.setItem('notifications', JSON.stringify(notifications));
+  };
+
+  // Toggles the dropdown menu visibility
+  notificationBtn.addEventListener('click', () => {
+  notificationDropdown.classList.toggle('show');
+
+    // Mark all as read when dropdown is opened
+    notifications = notifications.map(n => ({ ...n, read: true }));
+    localStorage.setItem('notifications', JSON.stringify(notifications));
+    updateNotificationsUI(); 
+  });
+
+  // Handle archive button clicks within the dropdown
+  notificationList.addEventListener('click', (e) => {
+    if (e.target.classList.contains('archive-btn')) {
+      const index = parseInt(e.target.getAttribute('data-index'));
+      
+      // Simple remove: filter out the notification at the specified index
+      notifications = notifications.filter((_, i) => i !== index);
+      updateNotificationsUI();
+    }
+  });
+  
+  // Initial UI render
+  updateNotificationsUI();
+
+
+  // =======================================================
+  // 💬 CHATBOT LOGIC (Your existing code)
+  // =======================================================
+    const chatTab = document.getElementById('chatTab');
+    const chatWindow = document.getElementById('chatWindow');
+    const closeChatBtn = document.getElementById('closeChatBtn');
+    const chatBody = document.getElementById('chatBody');
+    const chatInput = document.getElementById('chatInput');
+    const chatSendBtn = document.getElementById('chatSendBtn');
+    
+    // ... (rest of your existing chatbot logic) ...
+    
+    const toggleChatWindow = () => {
+        // Adds or removes the 'visible' class to show/hide the window
+        chatWindow.classList.toggle('visible');
+        
+        if (chatWindow.classList.contains('visible')) {
+            chatInput.focus();
+        }
+    };
+
+    // Attach the toggle function to the floating icon and the close button
+    chatTab.addEventListener('click', toggleChatWindow);
+    closeChatBtn.addEventListener('click', toggleChatWindow);
+
+    
+    // --- 2. Chat Functionality (Fixed Response Logic) ---
+    const createMessageElement = (message, type) => {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `chat-message ${type}-message`;
+        msgDiv.textContent = message;
+        chatBody.appendChild(msgDiv);
+        chatBody.scrollTop = chatBody.scrollHeight;
+    };
+    
+    const handleUserInput = () => {
+        const userText = chatInput.value.trim();
+        if (userText === '') return;
+
+        createMessageElement(userText, 'user');
+
+        chatInput.value = '';
+
+        // Generate fixed bot response after a short delay
+        setTimeout(() => {
+            const botResponse = "Contact 0712345678 for more info.";
+            createMessageElement(botResponse, 'bot');
+        }, 500);
+    };
+
+    // Send button click and Enter key press listeners
+    chatSendBtn.addEventListener('click', handleUserInput);
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            handleUserInput();
+        }
+    });
+});
+  </script>
+  
+<div class="chatbot-container">
+    <button id="chatTab" class="chat-tab-btn" title="Advisor Support">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+    
+    <div id="chatWindow" class="chat-window">
+        <div class="chat-header">
+            <h3>Advisor Support</h3>
+            <button id="closeChatBtn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-message bot-message">
+                How may I help you?
+            </div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Type a message..." />
+            <button id="chatSendBtn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

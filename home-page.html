@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gold Cinema - Home</title>
+  <link rel="stylesheet" href="home-page.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    
+</head>
+<body>
+  <canvas id="background"></canvas>
+
+  <!-- 🧭 Navbar -->
+   <nav>
+    <div class="logo">🎬 Gold Cinema</div>
+    <ul>
+        <li class="notification-item">
+            <button id="notificationBtn" class="nav-icon-btn">
+                <i class="fas fa-bell"></i>
+                <span id="notificationCount" class="badge">0</span>
+            </button>
+            <div id="notificationDropdown" class="dropdown-content">
+                <p class="dropdown-header">Notifications</p>
+                <div id="notificationList">
+                    <p class="empty-message">No new notifications.</p>
+                </div>
+            </div>
+        </li>
+
+        <li>
+            <button id="accountBtn" class="button">
+                <span class="desktop-text">MY ACCOUNT</span>
+                <i class="fas fa-user mobile-icon"></i>
+            </button>
+        </li>
+
+        <li>
+            <button id="logoutBtn"  class="button">
+                <span class="desktop-text">LOGOUT</span>
+                <i class="fas fa-sign-out-alt mobile-icon"></i>
+            </button>
+        </li>
+    </ul>
+</nav>
+   
+
+  <!-- 🎥 Hero Section -->
+  <section id="hero" class="hero">
+    <h1>Welcome to Gold Cinema</h1>
+    <p>Experience movies like never before — luxury, sound, and the magic of the big screen.</p>
+    <button id="bookNowBtn" class="button">Book Now</button>
+  </section>
+
+  <!-- 🎞 Now Showing Section -->
+  <section id="movies">
+    <h2>Now Showing concerts</h2>
+    <div class="movie-grid">
+      <div class="movie">
+        <a href="booking.html" onclick="bookMovie('Tailor swift concert')">
+          <img src="tailor.jpg" alt="Midnight Chase Poster">
+        </a>
+        <h3>Tailor Swift Concert Show</h3>
+        <p>show | 1h 30m</p>
+      </div>
+      <div class="movie">
+        <a href="booking.html" onclick="bookMovie('Free rock concert')">
+          <img src="freerock-concert.jpg" >
+        </a>
+        <h3>free-rockconcert</h3>
+        <p>show | 1h 55m</p>
+      </div>
+      
+      <div class="movie">
+        <a href="other-movies.html">
+          <img src="other-movies.jpg" alt="Other Movies">
+        </a>
+        
+        <h3>Book other movies, shows and more</h3>
+      </div>
+    </div>
+  </section>
+   <section id="movies">
+    <h2>Now Showing plays</h2>
+    <div class="movie-grid">
+      <div class="movie">
+        <a href="booking.html" onclick="bookMovie('Cold play')">
+          <img src="coldplay.jpg" alt="Midnight Chase Poster">
+        </a>
+        <h3>Cold play </h3>
+        <p>play | 2h 10m</p>
+      </div>
+      <div class="movie">
+        <a href="booking.html" onclick="bookMovie('childs play')">
+          <img src="childsplay.jpg" alt="Interstellar Poster">
+        </a>
+        <h3>childsplay</h3>
+        <p>Drama | 1h 55m</p>
+      </div>
+      
+      <div class="movie">
+        <a href="other-movies.html">
+          <img src="other-movies.jpg" alt="Other Movies">
+        </a>
+        
+        <h3>Book other movies, series and more</h3>
+      </div>
+    </div>
+  </section>
+   <section id="movies">
+    <h2>Now Showing movies</h2>
+    <div class="movie-grid">
+      <div class="movie">
+        <a href="booking.html" onclick="bookMovie('Midnight Chase')">
+          <img src="minecraft.jpg" alt="Midnight Chase Poster">
+        </a>
+        <h3>Midnight Chase (Inspired by Inception)</h3>
+        <p>Thriller | 2h 10m</p>
+      </div>
+      <div class="movie">
+        <a href="booking.html" onclick="bookMovie('Echoes of Light')">
+          <img src="https://m.media-amazon.com/images/I/91kFYg4fX3L._AC_UF894,1000_QL80_.jpg" alt="Interstellar Poster">
+        </a>
+        <h3>Echoes of Light (Inspired by Interstellar)</h3>
+        <p>Drama | 1h 55m</p>
+      </div>
+      
+      <div class="movie">
+        <a href="other-movies.html">
+          <img src="other-movies.jpg" alt="Other Movies">
+        </a>
+        
+        <h3>Book other movies, series and more</h3>
+      </div>
+    </div>
+  </section>
+
+  <footer>© 2025 Gold Cinema. All rights reserved.</footer>
+
+<script>
+    // --- Notification Helper Functions ---
+
+    function getNotifications() {
+        const storedNotifications = localStorage.getItem('userNotifications');
+        return storedNotifications ? JSON.parse(storedNotifications) : [];
+    }
+
+    function saveNotifications(notifications) {
+        localStorage.setItem('userNotifications', JSON.stringify(notifications));
+    }
+
+    // Function to mark a notification as read (using the index)
+    function markNotificationAsRead(index) {
+        const notifications = getNotifications();
+        if (notifications[index]) {
+            notifications[index].read = true;
+            saveNotifications(notifications);
+            renderNotifications(); // Re-render the list
+        }
+    }
+
+    // Function to display notifications in the dropdown
+    function renderNotifications() {
+        const notifications = getNotifications();
+        const listElement = document.getElementById('notificationList');
+        const countElement = document.getElementById('notificationCount');
+        
+        listElement.innerHTML = '';
+        let unreadCount = 0;
+        
+        if (notifications.length === 0) {
+            listElement.innerHTML = '<p class="empty-message">No notifications.</p>';
+        }
+        
+        notifications.forEach((notification, index) => {
+            const item = document.createElement('div');
+            item.className = notification.read ? 'notification-item-content read' : 'notification-item-content unread';
+            item.dataset.index = index;
+            
+            if (!notification.read) {
+                unreadCount++;
+            }
+            
+            // Notification Message
+            item.innerHTML = `<span class="notification-text">${notification.message}</span>`;
+            
+            // Button to Mark as Read/Archive
+            const actionButton = document.createElement('button');
+            actionButton.className = 'archive-btn';
+            actionButton.textContent = notification.read ? 'READ' : 'Mark Read';
+            
+            if (notification.read) {
+                 actionButton.disabled = true;
+                 actionButton.classList.add('disabled');
+            }
+            
+            // Add event listener to the button
+            actionButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                markNotificationAsRead(index);
+            });
+            
+            item.appendChild(actionButton);
+            listElement.appendChild(item);
+        });
+        
+        // Update the main navbar badge count with only UNREAD messages
+        countElement.textContent = unreadCount;
+        countElement.style.display = unreadCount > 0 ? 'block' : 'none';
+    }
+
+    // Function to add a notification (called after booking)
+    function addNotification(message) {
+        const notifications = getNotifications();
+        // Add new notification to the beginning of the array with a 'read: false' flag
+        notifications.unshift({
+            message: message,
+            read: false,
+            timestamp: new Date().toISOString()
+        });
+        saveNotifications(notifications);
+        renderNotifications();
+    }
+    
+    // --- Main Document Logic ---
+    document.addEventListener("DOMContentLoaded", () => {
+        // Hide the floating icon's badge on the homepage (since the navbar bell manages it)
+        const instantBadge = document.getElementById('instantBadge');
+        if (instantBadge) {
+            instantBadge.style.display = 'none';
+        }
+
+        const loggedInUser = localStorage.getItem("loggedInUser");
+        if (!loggedInUser) {
+            window.location.href = "login.html";
+            return;
+        }
+
+        // Process Notifications from Booking Pages
+        const newBookingMessage = localStorage.getItem('newBookingNotification');
+        if (newBookingMessage) {
+            addNotification(newBookingMessage); 
+            localStorage.removeItem('newBookingNotification');
+        }
+
+        // Initialize and render all persistent notifications
+        renderNotifications(); 
+
+        // Main Navbar Notification Button Handler
+        const notificationBtn = document.getElementById('notificationBtn');
+        const notificationDropdown = document.getElementById('notificationDropdown');
+
+        notificationBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); 
+            notificationDropdown.classList.toggle('show');
+        });
+
+        // Floating Bell Icon on Homepage (just opens the main dropdown)
+        const persistentBtn = document.getElementById("persistentNotificationBtn");
+        if (persistentBtn) {
+            persistentBtn.addEventListener("click", () => {
+                notificationDropdown.classList.toggle('show');
+            });
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.addEventListener('click', (event) => {
+            if (!event.target.closest('.notification-item') && !event.target.closest('.notification-float') && notificationDropdown.classList.contains('show')) {
+                notificationDropdown.classList.remove('show');
+            }
+        });
+
+        // Existing Account and Logout logic
+        document.getElementById("accountBtn").addEventListener("click", () => {
+            window.location.href = "account.html";
+        });
+
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            localStorage.removeItem("loggedInUser");
+            localStorage.removeItem("userNotifications"); 
+            alert("You’ve been logged out.");
+            window.location.href = "login.html";
+        });
+
+        document.getElementById("bookNowBtn").addEventListener("click", (e) => {
+            e.preventDefault();
+            document.getElementById("movies").scrollIntoView({ behavior: "smooth" });
+        });
+    });
+
+    // Save selected movie to localStorage
+    function bookMovie(movieName) {
+        localStorage.setItem("selectedMovie", movieName);
+        window.location.href = "booking.html";
+    }
+    
+   
+    document.addEventListener('DOMContentLoaded', () => {
+        const chatTab = document.getElementById('chatTab');
+        const chatWindow = document.getElementById('chatWindow');
+        const closeChatBtn = document.getElementById('closeChatBtn');
+        const chatBody = document.getElementById('chatBody');
+        const chatInput = document.getElementById('chatInput');
+        const chatSendBtn = document.getElementById('chatSendBtn');
+        
+        // --- 1. Toggle Chat Window Functionality (Corrected) ---
+        
+        // Add a class to the chat window when it should be visible
+        const toggleChatWindow = () => {
+            chatWindow.classList.toggle('visible');
+            
+            // Focus input if opened
+            if (chatWindow.classList.contains('visible')) {
+                chatInput.focus();
+            }
+        };
+
+        // Attach the toggle function to the floating icon
+        chatTab.addEventListener('click', toggleChatWindow);
+
+        // Attach the toggle function (hiding) to the close button for convenience
+        closeChatBtn.addEventListener('click', toggleChatWindow);
+
+        
+        // --- 2. Chat Functionality (Fixed Response Logic) ---
+        
+        const handleUserInput = () => {
+            const userText = chatInput.value.trim();
+            if (userText === '') return;
+
+            // Display user message
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.className = 'chat-message user-message';
+            userMessageDiv.textContent = userText;
+            chatBody.appendChild(userMessageDiv);
+
+            // Clear input
+            chatInput.value = '';
+
+            // Generate fixed bot response after a short delay
+            setTimeout(() => {
+                const botResponse = "Contact 0712345678 for more info.";
+                const botMessageDiv = document.createElement('div');
+                botMessageDiv.className = 'chat-message bot-message';
+                botMessageDiv.textContent = botResponse;
+                chatBody.appendChild(botMessageDiv);
+
+                // Auto-scroll to the bottom
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 500);
+            
+            // Auto-scroll to the bottom immediately after user message
+            chatBody.scrollTop = chatBody.scrollHeight;
+        };
+
+        // Send button click
+        chatSendBtn.addEventListener('click', handleUserInput);
+        
+        // Enter key press in input field
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleUserInput();
+            }
+        });
+    });
+
+</script>
+<div class="chatbot-container">
+    <button id="chatTab" class="chat-tab-btn" title="Advisor Support">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+    
+    <div id="chatWindow" class="chat-window">
+        <div class="chat-header">
+            <h3>Gold Cinema Support</h3>
+            <button id="closeChatBtn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-message bot-message">
+                How may I help you?
+            </div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Type a message..." />
+            <button id="chatSendBtn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
