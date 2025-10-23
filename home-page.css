@@ -15,7 +15,7 @@ html {
 
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: #fff;
+  background:radial-gradient(circle at center, #4b00d1 0%, #1a0065 100%);
   color: #fff;
   overflow-x: hidden;
   position: relative;
