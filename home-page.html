@@ -301,10 +301,7 @@ overlay.addEventListener('click', () => {
             window.location.href = "login.html";
         });
 
-        document.getElementById("bookNowBtn").addEventListener("click", (e) => {
-            e.preventDefault();
-            document.getElementById(".movie-grid").scrollIntoView({ behavior: "smooth" });
-        });
+       
     });
 
     // Save selected movie to localStorage
@@ -382,7 +379,10 @@ overlay.addEventListener('click', () => {
             }
         });
     });
-
+ document.getElementById("bookNowBtn").addEventListener("click", (e) => {
+            e.preventDefault();
+            document.getElementById(".movie-grid").scrollIntoView({ behavior: "smooth" });
+        });
 </script>
 <div class="chatbot-container">
     <button id="chatTab" class="chat-tab-btn" title="Advisor Support">
