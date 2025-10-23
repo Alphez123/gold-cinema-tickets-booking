@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sliding Menu</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="menu-btn.css">
 </head>
 <body>
   <!-- Menu Button -->
@@ -23,6 +23,21 @@
   <!-- Overlay -->
   <div class="overlay" id="overlay"></div>
 
-  <script src="script.js"></script>
+  <script >
+    const menuBtn = document.getElementById('menu-btn');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+
+menuBtn.addEventListener('click', () => {
+  sidebar.classList.toggle('active');
+  overlay.classList.toggle('active');
+});
+
+overlay.addEventListener('click', () => {
+  sidebar.classList.remove('active');
+  overlay.classList.remove('active');
+});
+
+  </script>
 </body>
 </html>
