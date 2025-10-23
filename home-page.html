@@ -379,10 +379,7 @@ overlay.addEventListener('click', () => {
             }
         });
     });
- document.getElementById("bookNowBtn").addEventListener("click", (e) => {
-            e.preventDefault();
-            document.getElementById(".movie-grid").scrollIntoView({ behavior: "smooth" });
-        });
+ 
 </script>
 <div class="chatbot-container">
     <button id="chatTab" class="chat-tab-btn" title="Advisor Support">
@@ -405,5 +402,9 @@ overlay.addEventListener('click', () => {
         </div>
     </div>
 </div>
+<script>document.getElementById("bookNowBtn").addEventListener("click", (e) => {
+            e.preventDefault();
+            document.getElementById(".movie-grid").scrollIntoView({ behavior: "smooth" });
+        });</script>
 </body>
 </html>
