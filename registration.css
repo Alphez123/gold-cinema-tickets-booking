@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* ============================================================
    AUTH PAGES (Login / Register) + Chatbot Styles
    ============================================================ */
@@ -6,8 +5,6 @@
 /* ------------------------------ */
 /* GLOBAL STYLES */
 /* ------------------------------ */
-=======
->>>>>>> c919458c80f0f7dae94709842a1943c72c91ed24
 * {
   box-sizing: border-box;
 }
@@ -15,7 +12,6 @@
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
-<<<<<<< HEAD
   color: #fff;
 }
 
@@ -34,15 +30,11 @@ body {
 /* ------------------------------ */
 /* MAIN CONTAINER */
 /* ------------------------------ */
-=======
-}
->>>>>>> c919458c80f0f7dae94709842a1943c72c91ed24
 .container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-<<<<<<< HEAD
   min-height: 100vh;
   padding: 50px 0;
   background: transparent;
@@ -63,32 +55,10 @@ body {
   box-shadow:
     0 10px 30px rgba(0, 0, 0, 0.5),
     0 0 20px rgba(122, 51, 255, 0.5);
-=======
-  height: 150vh;
-  background-color: #1a0065;
-}
-.cta {
-  font-size: 1rem;
-}
-.cta a {
-  text-decoration: none;
-  margin-left: 5px;
-  margin-top: 20px;
-}
-.login-box,
-.register-box {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 20px;
-  margin: 20px;
-  width: 100%;
-  max-width: 400px;
->>>>>>> c919458c80f0f7dae94709842a1943c72c91ed24
 }
 
 .login-box h2,
 .register-box h2 {
-<<<<<<< HEAD
   color: #1a004d;
   text-align: center;
   margin: 0 0 30px;
@@ -99,36 +69,22 @@ body {
 /* ------------------------------ */
 /* FORM STYLES */
 /* ------------------------------ */
-=======
-  margin-top: 0;
-  text-align: center;
-  font-size: 1.5rem;
-}
-
->>>>>>> c919458c80f0f7dae94709842a1943c72c91ed24
 form {
   display: flex;
   flex-direction: column;
 }
 
 label {
-<<<<<<< HEAD
   margin-top: 15px;
   font-size: 0.9em;
   font-weight: 500;
   color: #333;
   text-align: left;
-=======
-  margin-top: 10px;
-  font-weight: 500;
-  font-size: 1rem;
->>>>>>> c919458c80f0f7dae94709842a1943c72c91ed24
 }
 
 input[type="text"],
 input[type="email"],
 input[type="tel"],
-<<<<<<< HEAD
 input[type="password"],
 input[type="cities"],
 select {
@@ -325,45 +281,3 @@ button[type="submit"]:hover {
   height: 35px;
   cursor: pointer;
 }
-=======
-input[type="password"] {
-  padding: 10px;
-  border: none;
-  border: none;
-  border-radius: 0.25rem;
-  background-color: #f2f2f2;
-  font-size: 1rem;
-  border-radius: 15px;
-  width: 100%;
-}
-
-button[type="submit"] {
-  background-color: #1a0065;
-  color: #fff;
-  padding: 10px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 1rem;
-  width: 100%;
-  margin: 40px 0;
-}
-
-button[type="submit"]:hover {
-  background-color: #3e8e41;
-}
-
-@media screen and (min-width: 600px) {
-  .login-box,
-  .register-box {
-    width: 45%;
-    margin: 10px 5px;
-  }
-}
-
-@media screen and (min-width: 900px) {
-  .container {
-    flex-direction: row;
-  }
-}
->>>>>>> c919458c80f0f7dae94709842a1943c72c91ed24
