@@ -21,7 +21,13 @@ body {
   position: relative;
   min-height: 100vh;
   padding-bottom: 80px; /* Space for footer */
+  background-image: url('cinema.jpg'); /* path to your image */
+  background-size: cover;       /* makes the image fill the screen */
+  background-repeat: no-repeat; /* prevents tiling */
+  background-position: center;  /* centers the image */
 }
+
+
 
 canvas {
   position: fixed;
@@ -31,6 +37,10 @@ canvas {
   height: 100%;
   z-index: 0;
   background: radial-gradient(circle at center, #4b00d1 0%, #1a0065 100%);
+  background-image: url('cinema.jpg'); /* path to your image */
+  background-size: cover;       /* makes the image fill the screen */
+  background-repeat: no-repeat; /* prevents tiling */
+  background-position: center;  /* centers the image */
 }
 
 /* 🧭 NAVBAR */
