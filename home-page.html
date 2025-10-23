@@ -9,6 +9,22 @@
   
 </head>
 <body>
+   <!-- Menu Button -->
+  <div class="menu-btn" id="menu-btn">
+    <i class="fas fa-bars"></i> <!-- hamburger icon -->
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <h2><i class="fas fa-user-circle"></i>Menu</h2>
+    <button class ="button"><a href="account.html" ><i class="fas fa-user"></i>My Account</a></button>
+    <button class="button"><a href="#"><i class="fas fa-ticket-alt"></i> Tickets Booked</a></button>
+    <button class="button"><a href="login.html"><i class="fas fa-sign-out-alt"></i>Log Out</a></button>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+
   
   <!-- 🧭 Navbar -->
    <nav>
@@ -125,6 +141,22 @@
   <footer>© 2025 Gold Cinema. All rights reserved.</footer>
 
 <script>
+  
+    const menuBtn = document.getElementById('menu-btn');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+
+menuBtn.addEventListener('click', () => {
+  sidebar.classList.toggle('active');
+  overlay.classList.toggle('active');
+});
+
+overlay.addEventListener('click', () => {
+  sidebar.classList.remove('active');
+  overlay.classList.remove('active');
+});
+
+  
     // --- Notification Helper Functions ---
 
     function getNotifications() {
