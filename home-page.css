@@ -982,3 +982,50 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
+/* 📱 MOBILE NAVIGATION */
+@media (max-width: 768px) {
+  /* Hide Movies, Concerts, Plays buttons */
+  nav ul li:nth-child(1),  /* Movies */
+  nav ul li:nth-child(2),  /* Concerts */ 
+  nav ul li:nth-child(3) { /* Plays */
+    display: none;
+  }
+  
+  /* Adjust navigation layout */
+  nav ul {
+    justify-content: flex-end;
+    gap: 0.8em;
+  }
+  
+  /* Make login button more prominent on mobile */
+  nav ul li .login-btn {
+    padding: 8px 16px;
+    font-size: 0.9em;
+  }
+  
+  /* Optional: Adjust logo for better mobile appearance */
+  nav .logo {
+    font-size: 1.6em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 150px;
+  }
+  
+  /* Ensure proper spacing */
+  nav {
+    padding: 0.8em 4%;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+  nav .logo {
+    font-size: 1.2em;
+    max-width: 120px;
+  }
+  
+  nav ul li .login-btn {
+    padding: 6px 12px;
+    font-size: 0.85em;
+  }
+}
