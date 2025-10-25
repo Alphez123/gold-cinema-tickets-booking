@@ -875,3 +875,110 @@
       content: "🎬";
       font-size: 1.2em;
     }
+/* 📱 MOBILE RESPONSIVE FIXES */
+@media (max-width: 768px) {
+  /* Base font size adjustment for mobile */
+  body {
+    font-size: 14px;
+  }
+  
+  /* Hero section text scaling */
+  .hero h1 {
+    font-size: 2em !important;
+    line-height: 1.3;
+    padding: 0 10px;
+  }
+  
+  .hero p {
+    font-size: 1.1em !important;
+    padding: 0 15px;
+  }
+  
+  /* Section headings */
+  #movies h2, #concerts h2 {
+    font-size: 1.8em !important;
+  }
+  
+  /* Movie titles and text */
+  .movie h3 {
+    font-size: 1.1em !important;
+  }
+  
+  .movie p {
+    font-size: 0.9em !important;
+  }
+  
+  /* Button text */
+  .button {
+    font-size: 1em !important;
+    padding: 0.8em 1.5em !important;
+  }
+  
+  /* Sidebar text */
+  .sidebar h2 {
+    font-size: 1.3em !important;
+  }
+  
+  .sidebar a {
+    font-size: 1em !important;
+  }
+  
+  /* Modal text */
+  .modal-content h2 {
+    font-size: 1.5em !important;
+  }
+  
+  /* Notification text */
+  .dropdown-content {
+    min-width: 280px !important;
+  }
+  
+  .notification-item-content {
+    font-size: 0.9em !important;
+    padding: 10px 12px !important;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  body {
+    font-size: 13px;
+  }
+  
+  .hero h1 {
+    font-size: 1.8em !important;
+  }
+  
+  .hero p {
+    font-size: 1em !important;
+  }
+  
+  #movies h2, #concerts h2 {
+    font-size: 1.6em !important;
+  }
+  
+  .movie-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5em !important;
+  }
+}
+
+/* Prevent text size adjustment on mobile rotation */
+html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Ensure proper viewport scaling */
+@viewport {
+  width: device-width;
+  zoom: 1.0;
+}
+
+/* Add smooth font rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
