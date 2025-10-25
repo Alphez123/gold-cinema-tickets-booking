@@ -17,30 +17,68 @@
       <a href="index.html" class="back-link">← Back </a>
       <h2>Create Your Account</h2>
 
-      <form id="registerForm">
+      <form action="register.php" id="registerForm" method="POST">
         <label for="firstName">First Name</label>
         <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required />
 
         <label for="lastName">Last Name</label>
         <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required />
 
-        <label for="city">City</label>
-        <input list="cityList" id="city" name="city" placeholder="e.g. Kisii" required />
-        <datalist id="cityList">
-          <option value="Nairobi">
-          <option value="Mombasa">
-          <option value="Kisii">
-          <option value="Nakuru">
-          <option value="Eldoret">
-          <option value="Thika">
-          <option value="Kericho">
-          <option value="Nyeri">
-          <option value="Machakos">
-          <option value="Kakamega">
-        </datalist>
+       <label for="city">City</label>
+<input list="cityList" id="city" name="city" placeholder="e.g. Kisii" required />
+<datalist id="cityList">
+  <option value="Nairobi">
+  <option value="Mombasa">
+  <option value="Kisii">
+  <option value="Nakuru">
+  <option value="Eldoret">
+  <option value="Thika">
+  <option value="Kericho">
+  <option value="Nyeri">
+  <option value="Machakos">
+  <option value="Kakamega">
+  <option value="Kwale">
+  <option value="Malindi">
+  <option value="Voi">
+  <option value="Garissa">
+  <option value="Wajir">
+  <option value="Mandera">
+  <option value="Marsabit">
+  <option value="Isiolo">
+  <option value="Meru">
+  <option value="Embu">
+  <option value="Kitui">
+  <option value="Wote">
+  <option value="Ol Kalou">
+  <option value="Kerugoya">
+  <option value="Murang'a">
+  <option value="Kiambu">
+  <option value="Lodwar">
+  <option value="Kapenguria">
+  <option value="Maralal">
+  <option value="Kitale">
+  <option value="Iten">
+  <option value="Kapsabet">
+  <option value="Kabarnet">
+  <option value="Rumuruti">
+  <option value="Narok">
+  <option value="Kajiado">
+  <option value="Bomet">
+  <option value="Mbale">
+  <option value="Bungoma">
+  <option value="Busia">
+  <option value="Siaya">
+  <option value="Homa Bay">
+  <option value="Migori">
+  <option value="Nyamira">
+  <option value="Hola">
+  <option value="Lamu">
+  <option value="Mwatate">
+  <option value="Kathwana">
+  </datalist>
 
         <label for="addressDisplay">Physical Address</label>
-        <input type="text" id="addressDisplay" name="addressDisplay" placeholder="Fetching location..." readonly />
+        <input type="text" id="addressDisplay" name="address" placeholder="Fetching location..." readonly />
 
         <label for="zipCode">Zip Code</label>
         <input type="text" id="zipCode" name="zipCode" placeholder="Enter your zip code" required />

@@ -68,7 +68,7 @@ html, body {
 .back-link {
   display: inline-block;
   margin-bottom: 15px;
-  color: #000;
+  color: #000000;
   font-weight: 600;
   text-decoration: none;
   transition: text-decoration 0.3s;
@@ -85,7 +85,7 @@ label {
   display: block;
   margin-top: 10px;
   font-size: 14px;
-  color: #000;
+  color: #000000;
   text-align: left;
 }
 
@@ -97,8 +97,8 @@ select {
   border: none;
   border-radius: 5px;
   outline: none;
-  background-color: #222;
-  color: #fff;
+  background-color: #f0f0f0;
+  color: #070505;
 }
 
 /* ------------------------------ */

@@ -1,314 +1,770 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Book Your Movie</title>
-  <link rel="stylesheet" href="other-movies.css" />
-  <!-- Include floating advisor -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Your Movie</title>
+  <link rel="stylesheet" href="other-movies.css" />
+  <style>/* ============================================================
+   BOOKING PAGE STYLES
+   Optimized, standardized, and consistently formatted
+   ============================================================ */
 
+/* ------------------------------ */
+/* 🌐 GENERAL STYLES */
+/* ------------------------------ */
+html, body {
+  margin: 0;
+  background:radial-gradient(circle at center, #4b00d1 0%, #1a0065 100%);
+  background-image: 
+    linear-gradient(to right, rgba(0, 49, 183, 0.6), transparent),
+    url('cinema.jpg');
+ /* path to your image */
+  background-size: cover;       /* makes the image fill the screen */
+  background-repeat: no-repeat; /* prevents tiling */
+  background-position: center;  /* centers the image */
+  background-attachment: fixed;
+  padding: 0;
+  height: 100%;
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+  overflow-y: auto; /* Enables scrolling */
+}
+
+/* Background */
+#background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200vh;
+  background: radial-gradient(circle at center, #4b00d1 0%, #1a0065 100%);
+  z-index: -1;
+}
+
+/* Container */
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0;
+}
+
+/* ------------------------------ */
+/* 🎟 BOOKING BOX */
+/* ------------------------------ */
+.booking-box {
+  background: #fff;
+  color: #000;
+  width: 350px;
+  padding: 30px 40px;
+  border-radius: 15px;
+  text-align: center;
+  position: relative;
+  z-index: 5;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+}
+
+.booking-box h1,
+.booking-box h2 {
+  margin-bottom: 20px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 15px;
+  color: #000000;
+  font-weight: 600;
+  text-decoration: none;
+  transition: text-decoration 0.3s;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+/* ------------------------------ */
+/* 🧾 FORM ELEMENTS */
+/* ------------------------------ */
+label {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #000000;
+  text-align: left;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  background-color: #f0f0f0;
+  color: #070505;
+}
+
+/* ------------------------------ */
+/* 💺 SEAT MAP */
+/* ------------------------------ */
+.seat-map {
+  margin: 15px 0;
+}
+
+.seat-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.seat {
+  padding: 8px 12px;
+  margin: 3px;
+  border-radius: 5px;
+  border: 1px solid #555;
+  background: radial-gradient(circle at center, #4b00d1 0%, #1a0065 100%);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.seat:hover {
+  background: #fff;
+  color: #000;
+}
+
+.seat.selected {
+  background: #fff;
+  color: #080808;
+}
+
+/* ------------------------------ */
+/* 🔘 BUTTONS */
+/* ------------------------------ */
+.book-btn {
+  width: 100%;
+  background: radial-gradient(circle at center, #4b00d1 0%, #1a0065 100%);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+
+.book-btn:hover {
+  background: #4b00d1;
+  box-shadow: 0 0 15px rgba(75, 0, 209, 0.5);
+}
+
+.button {
+  width: 100%;
+  background: linear-gradient(45deg, #7a33ff, #3a00b5);
+  color: #fff;
+  font-weight: bold;
+  padding: 0.9em 1.8em;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 20px;
+  text-transform: uppercase;
+  font-size: 1em;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 15px rgba(122, 51, 255, 0.6);
+}
+
+.button:hover {
+  background: linear-gradient(45deg, #a36fff, #3a00b5);
+  box-shadow: 0 0 25px rgba(122, 51, 255, 1);
+  transform: scale(1.05);
+}
+
+/* ------------------------------ */
+/* 🔔 FLOATING NOTIFICATION ICON */
+/* ------------------------------ */
+.notification-float {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+}
+
+.float-icon-btn {
+  background: rgba(122, 51, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  width: 45px;
+  height: 45px;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s, background 0.3s;
+}
+
+.float-icon-btn:hover {
+  background: #7a33ff;
+  transform: scale(1.05);
+}
+
+/* Notification Badge */
+.badge-float {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  padding: 3px 6px;
+  border-radius: 50%;
+  background-color: #ff4d4d;
+  color: #fff;
+  font-size: 0.7em;
+  font-weight: bold;
+  line-height: 1;
+}
+
+/* ------------------------------ */
+/* ⚡ INSTANT CONFIRMATION WINDOW */
+/* ------------------------------ */
+.instant-window {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 60px;
+  min-width: 250px;
+  padding: 10px 15px;
+  background: rgba(25, 0, 80, 0.95);
+  color: #fff;
+  border-radius: 6px;
+  border: 1px solid #c9a6ff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+.instant-window p {
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #c9a6ff;
+}
+
+/* ------------------------------ */
+/* 📩 NOTIFICATION DROPDOWN */
+/* ------------------------------ */
+.notification-float .dropdown-content {
+  position: absolute;
+  top: 50px;
+  left: -10px;
+  min-width: 350px;
+  max-height: 400px;
+  background-color: #1a004d;
+  border: 1px solid #7a33ff;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+  overflow-y: auto;
+  display: none;
+  z-index: 1001;
+}
+
+.notification-float .dropdown-content.show {
+  display: block;
+}
+
+.dropdown-header {
+  padding: 10px 15px;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #ff007f;
+  border-bottom: 2px solid #3a00b5;
+}
+
+.empty-message {
+  padding: 10px 15px;
+  color: #aaa;
+  font-style: italic;
+  text-align: center;
+}
+
+/* Notification Items */
+.notification-item-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid rgba(122, 51, 255, 0.2);
+  color: #f0f0f0;
+  font-size: 0.9em;
+  transition: background-color 0.2s;
+}
+
+.notification-item-content.unread {
+  background-color: rgba(122, 51, 255, 0.1);
+  font-weight: 600;
+}
+
+.notification-text {
+  flex-grow: 1;
+  margin-right: 10px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.archive-btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+  background: #3a00b5;
+  color: #c9a6ff;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.archive-btn:hover:not(:disabled) {
+  background: #5b00e5;
+}
+
+.archive-btn.disabled {
+  background: #250080;
+  color: #7a33ff;
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ------------------------------ */
+/* 🤖 CHATBOT WIDGET */
+/* ------------------------------ */
+.chatbot-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1500; /* Always on top */
+}
+
+/* Floating Tab Button */
+.chat-tab-btn {
+  background: #ff007f;
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  width: 55px;
+  height: 55px;
+  font-size: 1.5em;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s, background 0.3s;
+}
+
+.chat-tab-btn:hover {
+  background: #ff3399;
+  transform: scale(1.1);
+}
+
+/* Chat Window */
+.chat-window {
+  display: none;
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  width: 300px;
+  height: 400px;
+  background: #1a004d;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.chat-window.visible {
+  display: flex !important;
+}
+
+/* Chat Header */
+.chat-header {
+  background: #7a33ff;
+  color: #fff;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Chat Body */
+.chat-body {
+  flex-grow: 1;
+  padding: 15px;
+  overflow-y: auto;
+  background-color: #0b012b;
+}
+
+.chat-message {
+  padding: 8px 12px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  max-width: 80%;
+}
+
+.bot-message {
+  background-color: #3a00b5;
+  color: #fff;
+  margin-right: auto;
+}
+
+.user-message {
+  background-color: #ff007f;
+  color: #fff;
+  margin-left: auto;
+}
+
+/* Chat Footer */
+.chat-footer {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #7a33ff;
+  background-color: #1a004d;
+}
+
+#chatInput {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #7a33ff;
+  border-radius: 20px;
+  margin-right: 8px;
+  background-color: #0b012b;
+  color: #fff;
+}
+
+#chatSendBtn {
+  background: #ff007f;
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+</style>
 <body>
-  <div class="notification-float">
-    <button id="persistentNotificationBtn" class="float-icon-btn" title="Notifications">
-        <i class="fas fa-bell"></i>
-        <span id="notificationCount" class="badge-float" style="display: none;">0</span>
-    </button>
-    
-    <div id="notificationDropdown" class="dropdown-content">
-        <p class="dropdown-header">Notifications</p>
-        <div id="notificationList">
-            <p class="empty-message">Loading notifications...</p>
-        </div>
-    </div>
+  <div class="notification-float">
+    <button id="persistentNotificationBtn" class="float-icon-btn" title="Notifications">
+        <i class="fas fa-bell"></i>
+        <span id="notificationCount" class="badge-float" style="display: none;">0</span>
+    </button>
+    
+    <div id="notificationDropdown" class="dropdown-content">
+        <p class="dropdown-header">Notifications</p>
+        <div id="notificationList">
+            <p class="empty-message">Loading notifications...</p>
+        </div>
+    </div>
 
-    <div id="instantBookingWindow" class="instant-window">
-        <p>Booking Confirmed! 🎉</p>
-        <span id="instantBookingDetails"></span>
-    </div>
+    <div id="instantBookingWindow" class="instant-window">
+        <p>Booking Confirmed! 🎉</p>
+        <span id="instantBookingDetails"></span>
+    </div>
 </div>
-    <canvas id="background"></canvas>
-  <div class="container">
-    <div class="booking-box">
-       <a href="home-page.html" class="back-link">←Back to Home</a>
-    <h1 id="movie-title"></h1>
-    <form id="booking-form">
-        <form id="bookingForm">
-        <!-- Date and Time -->
-        <label for="date">Choose Date</label>
-        <input type="date" id="date" name="date" required>
+    <canvas id="background"></canvas>
+  <div class="container">
+    <div class="booking-box">
+       <a href="home-page.html" class="back-link">←Back to Home</a>
+    <h1 id="movie-title"></h1>
+    <form id="booking-form">
+        <form id="bookingForm">
+                <label for="date">Choose Date</label>
+        <input type="date" id="date" name="date" required>
 
-        <label for="time">Choose Time</label>
-        <select id="time" name="time" required>
-          <option value="">Select Time</option>
-          <option value="10:00 AM">10:00 AM</option>
-          <option value="1:00 PM">1:00 PM</option>
-          <option value="4:00 PM">4:00 PM</option>
-          <option value="7:00 PM">7:00 PM</option>
-        </select>
+        <label for="time">Choose Time</label>
+        <select id="time" name="time" required>
+          <option value="">Select Time</option>
+          <option value="10:00 AM">10:00 AM</option>
+          <option value="1:00 PM">1:00 PM</option>
+          <option value="4:00 PM">4:00 PM</option>
+          <option value="7:00 PM">7:00 PM</option>
+        </select>
 
-        <!-- Seat selection -->
-        <label>Select Your Seat</label>
-        <div class="seat-map">
-          <div class="seat-row">
-            <button type="button" class="seat">A1</button>
-            <button type="button" class="seat">A2</button>
-            <button type="button" class="seat">A3</button>
-            <button type="button" class="seat">A4</button>
-          </div>
-          <div class="seat-row">
-            <button type="button" class="seat">B1</button>
-            <button type="button" class="seat">B2</button>
-            <button type="button" class="seat">B3</button>
-            <button type="button" class="seat">B4</button>
-          </div>
-        </div>
+                <label>Select Your Seat</label>
+        <div class="seat-map">
+          <div class="seat-row">
+            <button type="button" class="seat">A1</button>
+            <button type="button" class="seat">A2</button>
+            <button type="button" class="seat">A3</button>
+            <button type="button" class="seat">A4</button>
+          </div>
+          <div class="seat-row">
+            <button type="button" class="seat">B1</button>
+            <button type="button" class="seat">B2</button>
+            <button type="button" class="seat">B3</button>
+            <button type="button" class="seat">B4</button>
+          </div>
+        </div>
 
-        <!-- Confirm button -->
-        <button type="submit" class="button">Confirm Booking</button>
-      </form>
-    </div>
-  </div>
-  
- <script>
-    // --- Notification Helper Functions (REPLICATED FROM HOME PAGE) ---
-    // ... (Your notification functions: getNotifications, saveNotifications, markNotificationAsRead, renderNotifications) ...
-    function getNotifications() {
-        const storedNotifications = localStorage.getItem('userNotifications');
-        return storedNotifications ? JSON.parse(storedNotifications) : [];
-    }
+                <button type="submit" class="button">Confirm Booking</button>
+      </form>
+    </div>
+  </div>
+  
+ <script>
+    // --- Notification Helper Functions (REPLICATED FROM HOME PAGE) ---
+    // ... (Your notification functions: getNotifications, saveNotifications, markNotificationAsRead, renderNotifications) ...
+    function getNotifications() {
+        const storedNotifications = localStorage.getItem('userNotifications');
+        return storedNotifications ? JSON.parse(storedNotifications) : [];
+    }
 
-    function saveNotifications(notifications) {
-        localStorage.setItem('userNotifications', JSON.stringify(notifications));
-    }
+    function saveNotifications(notifications) {
+        localStorage.setItem('userNotifications', JSON.stringify(notifications));
+    }
 
-    function markNotificationAsRead(index) {
-        const notifications = getNotifications();
-        if (notifications[index]) {
-            notifications[index].read = true;
-            saveNotifications(notifications);
-            renderNotifications();
-        }
-    }
+    function markNotificationAsRead(index) {
+        const notifications = getNotifications();
+        if (notifications[index]) {
+            notifications[index].read = true;
+            saveNotifications(notifications);
+            renderNotifications();
+        }
+    }
 
-    function renderNotifications() {
-        const notifications = getNotifications();
-        const listElement = document.getElementById('notificationList');
-        const countElement = document.getElementById('notificationCount');
-        
-        listElement.innerHTML = '';
-        let unreadCount = 0;
-        
-        if (notifications.length === 0) {
-            listElement.innerHTML = '<p class="empty-message">No notifications.</p>';
-        }
-        
-        notifications.forEach((notification, index) => {
-            const item = document.createElement('div');
-            item.className = notification.read ? 'notification-item-content read' : 'notification-item-content unread';
-            item.dataset.index = index;
-            
-            if (!notification.read) {
-                unreadCount++;
-            }
-            
-            item.innerHTML = `<span class="notification-text">${notification.message}</span>`;
-            
-            const actionButton = document.createElement('button');
-            actionButton.className = 'archive-btn';
-            actionButton.textContent = notification.read ? 'READ' : 'Mark Read';
-            
-            if (notification.read) {
-                actionButton.disabled = true;
-                actionButton.classList.add('disabled');
-            }
-            
-            actionButton.addEventListener('click', (e) => {
-                e.stopPropagation();
-                markNotificationAsRead(index);
-            });
-            
-            item.appendChild(actionButton);
-            listElement.appendChild(item);
-        });
-        
-        countElement.textContent = unreadCount;
-        countElement.style.display = unreadCount > 0 ? 'block' : 'none';
-    }
+    function renderNotifications() {
+        const notifications = getNotifications();
+        const listElement = document.getElementById('notificationList');
+        const countElement = document.getElementById('notificationCount');
+        
+        listElement.innerHTML = '';
+        let unreadCount = 0;
+        
+        if (notifications.length === 0) {
+            listElement.innerHTML = '<p class="empty-message">No notifications.</p>';
+        }
+        
+        notifications.forEach((notification, index) => {
+            const item = document.createElement('div');
+            item.className = notification.read ? 'notification-item-content read' : 'notification-item-content unread';
+            item.dataset.index = index;
+            
+            if (!notification.read) {
+                unreadCount++;
+            }
+            
+            item.innerHTML = `<span class="notification-text">${notification.message}</span>`;
+            
+            const actionButton = document.createElement('button');
+            actionButton.className = 'archive-btn';
+            actionButton.textContent = notification.read ? 'READ' : 'Mark Read';
+            
+            if (notification.read) {
+                actionButton.disabled = true;
+                actionButton.classList.add('disabled');
+            }
+            
+            actionButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                markNotificationAsRead(index);
+            });
+            
+            item.appendChild(actionButton);
+            listElement.appendChild(item);
+        });
+        
+        countElement.textContent = unreadCount;
+        countElement.style.display = unreadCount > 0 ? 'block' : 'none';
+    }
 
 
-    // --- Main Document Logic ---
-    document.addEventListener("DOMContentLoaded", () => {
-        // 1. Initialize Notifications
-        renderNotifications();
-        
-        // 2. Floating Notification Button Handler (Open Dropdown)
-        const persistentBtn = document.getElementById("persistentNotificationBtn");
-        const notificationDropdown = document.getElementById('notificationDropdown');
+    // --- Main Document Logic ---
+    document.addEventListener("DOMContentLoaded", () => {
+        // 1. Initialize Notifications
+        renderNotifications();
+        
+        // 2. Floating Notification Button Handler (Open Dropdown)
+        const persistentBtn = document.getElementById("persistentNotificationBtn");
+        const notificationDropdown = document.getElementById('notificationDropdown');
 
-        persistentBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            notificationDropdown.classList.toggle('show');
-        });
+        persistentBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            notificationDropdown.classList.toggle('show');
+        });
 
-        // 3. Close the dropdown if the user clicks outside of it
-        window.addEventListener('click', (event) => {
-            if (!event.target.closest('.notification-float') && notificationDropdown.classList.contains('show')) {
-                notificationDropdown.classList.remove('show');
-            }
-        });
+        // 3. Close the dropdown if the user clicks outside of it
+        window.addEventListener('click', (event) => {
+            if (!event.target.closest('.notification-float') && notificationDropdown.classList.contains('show')) {
+                notificationDropdown.classList.remove('show');
+            }
+        });
 
-        // --- Movie Title Display Logic (The part that was not working) ---
-        // This relies on the home-page setting 'selectedMovie' in localStorage
-        const movieName = localStorage.getItem("selectedMovie");
-        const movieTitle = document.getElementById("movie-title");
+        // --- Movie Title Display Logic (The part that was not working) ---
+        // This relies on the home-page setting 'selectedMovie' in localStorage
+        const movieName = localStorage.getItem("selectedMovie");
+        const movieTitle = document.getElementById("movie-title");
 
-        if (movieName) {
-            movieTitle.textContent = `Booking for ${movieName}`;
-        } else {
-            movieTitle.textContent = "Please return to the home page and select a movie."; // Better error message
-        }
+        if (movieName) {
+            movieTitle.textContent = `Booking for ${movieName}`;
+        } else {
+            movieTitle.textContent = "Please return to the home page and select a movie."; // Better error message
+        }
 
-        // Seat selection toggle
-        const seats = document.querySelectorAll(".seat");
-        seats.forEach((seat) => {
-            seat.addEventListener("click", () => {
-                seat.classList.toggle("selected");
-            });
-        });
+        // Seat selection toggle
+        const seats = document.querySelectorAll(".seat");
+        seats.forEach((seat) => {
+            seat.addEventListener("click", () => {
+                seat.classList.toggle("selected");
+            });
+        });
 
-        // Handle booking submission
-        document
-            .getElementById("booking-form") // Corrected to match the single form ID
-            .addEventListener("submit", function (e) {
-                e.preventDefault();
+        // Handle booking submission
+        document
+            .getElementById("booking-form") // Corrected to match the single form ID
+            .addEventListener("submit", function (e) {
+                e.preventDefault();
 
-                const date = document.getElementById("date").value;
-                const time = document.getElementById("time").value;
-                const selectedSeats = Array.from(
-                    document.querySelectorAll(".seat.selected")
-                ).map((s) => s.textContent);
+                const date = document.getElementById("date").value;
+                const time = document.getElementById("time").value;
+                const selectedSeats = Array.from(
+                    document.querySelectorAll(".seat.selected")
+                ).map((s) => s.textContent);
 
-                if (!date || !time || selectedSeats.length === 0) {
-                    alert("⚠️ Please select date, time, and at least one seat.");
-                    return;
-                }
-                
-                const title = movieName || "Your Movie";
+                if (!date || !time || selectedSeats.length === 0) {
+                    alert("⚠️ Please select date, time, and at least one seat.");
+                    return;
+                }
+                
+                const title = movieName || "Your Movie";
 
-                // 1. Create the detailed notification message for persistent storage
-                const notificationMessage = `
-                    🎫 **UPCOMING: ${title}** on ${date} at ${time}. Seats: ${selectedSeats.join(", ")}.
-                `.trim().replace(/\s+/g, ' ');
+                // 1. STORE BOOKING DETAILS (NEW FEATURE)
+                const newBooking = {
+                    movie: title,
+                    date: date,
+                    time: time,
+                    seats: selectedSeats.join(", "),
+                    bookingId: Date.now() // Unique ID
+                };
+                let bookings = JSON.parse(localStorage.getItem('userBookings') || '[]');
+                bookings.unshift(newBooking);
+                localStorage.setItem('userBookings', JSON.stringify(bookings));
+                // END OF NEW FEATURE
 
-                // 2. Store the notification data for the homepage to process
-                // Assuming you have a function to add a new notification to the array
-                let notifications = getNotifications();
-                notifications.unshift({ 
-                    message: notificationMessage, 
-                    read: false, 
-                    date: new Date().toISOString() 
-                });
-                saveNotifications(notifications);
+                // 2. Create the detailed notification message for persistent storage
+                const notificationMessage = `
+                    🎫 **UPCOMING: ${title}** on ${date} at ${time}. Seats: ${selectedSeats.join(", ")}.
+                `.trim().replace(/\s+/g, ' ');
 
-                // 3. Show the instant booking window
-                const instantWindow = document.getElementById('instantBookingWindow');
-                const instantDetails = document.getElementById('instantBookingDetails');
-                const instantBadge = document.getElementById('notificationCount');
+                // 3. Store the notification data for the homepage to process
+                let notifications = getNotifications();
+                notifications.unshift({ 
+                    message: notificationMessage, 
+                    read: false, 
+                    date: new Date().toISOString() 
+                });
+                saveNotifications(notifications);
 
-                instantDetails.textContent = `${title}, Date: ${date}, Seats: ${selectedSeats.join(", ")}`;
-                instantWindow.style.display = 'block';
-                // Trigger render for the badge update
-                renderNotifications(); 
+                // 4. Show the instant booking window
+                const instantWindow = document.getElementById('instantBookingWindow');
+                const instantDetails = document.getElementById('instantBookingDetails');
+                const instantBadge = document.getElementById('notificationCount');
 
-                // 4. Redirect after a delay so user sees the instant window
-                setTimeout(() => {
-                    window.location.href = "home-page.html";
-                }, 2000); 
-            });
-        
-        // Prevent choosing past dates logic
-        const dateInput = document.getElementById('date');
-        const today = new Date();
-        const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const dd = String(today.getDate()).padStart(2, '0');
-        const todayStr = `${yyyy}-${mm}-${dd}`;
-        dateInput.min = todayStr;
-    });
+                instantDetails.textContent = `${title}, Date: ${date}, Seats: ${selectedSeats.join(", ")}`;
+                instantWindow.style.display = 'block';
+                // Trigger render for the badge update
+                renderNotifications(); 
 
-    // --- CHATBOT LOGIC (Combined and Fixed) ---
-    document.addEventListener('DOMContentLoaded', () => {
-        const chatTab = document.getElementById('chatTab');
-        const chatWindow = document.getElementById('chatWindow');
-        const closeChatBtn = document.getElementById('closeChatBtn');
-        const chatBody = document.getElementById('chatBody');
-        const chatInput = document.getElementById('chatInput');
-        const chatSendBtn = document.getElementById('chatSendBtn');
+                // 5. Redirect after a delay so user sees the instant window
+                setTimeout(() => {
+                    window.location.href = "home-page.html";
+                }, 2000); 
+            });
+        
+        // Prevent choosing past dates logic
+        const dateInput = document.getElementById('date');
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        const todayStr = `${yyyy}-${mm}-${dd}`;
+        dateInput.min = todayStr;
+    });
 
-        // Helper to create chat messages
-        const createMessageElement = (message, type) => {
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `chat-message ${type}-message`;
-            msgDiv.textContent = message;
-            chatBody.appendChild(msgDiv);
-            chatBody.scrollTop = chatBody.scrollHeight;
-        };
+    // --- CHATBOT LOGIC (Combined and Fixed) ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const chatTab = document.getElementById('chatTab');
+        const chatWindow = document.getElementById('chatWindow');
+        const closeChatBtn = document.getElementById('closeChatBtn');
+        const chatBody = document.getElementById('chatBody');
+        const chatInput = document.getElementById('chatInput');
+        const chatSendBtn = document.getElementById('chatSendBtn');
 
-        // Toggle Chat Window
-        const toggleChatWindow = () => {
-            chatWindow.classList.toggle('visible');
-            if (chatWindow.classList.contains('visible')) {
-                chatInput.focus();
-            }
-        };
+        // Helper to create chat messages
+        const createMessageElement = (message, type) => {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `chat-message ${type}-message`;
+            msgDiv.textContent = message;
+            chatBody.appendChild(msgDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        };
 
-        chatTab.addEventListener('click', toggleChatWindow);
-        closeChatBtn.addEventListener('click', toggleChatWindow);
+        // Toggle Chat Window
+        const toggleChatWindow = () => {
+            chatWindow.classList.toggle('visible');
+            if (chatWindow.classList.contains('visible')) {
+                chatInput.focus();
+            }
+        };
 
-        // Chat Input Handler
-        const handleUserInput = () => {
-            const userText = chatInput.value.trim();
-            if (userText === '') return;
+        chatTab.addEventListener('click', toggleChatWindow);
+        closeChatBtn.addEventListener('click', toggleChatWindow);
 
-            createMessageElement(userText, 'user');
-            chatInput.value = '';
+        // Chat Input Handler
+        const handleUserInput = () => {
+            const userText = chatInput.value.trim();
+            if (userText === '') return;
 
-            setTimeout(() => {
-                const botResponse = "Contact 0712345678 for more info.";
-                createMessageElement(botResponse, 'bot');
-            }, 500);
-        };
+            createMessageElement(userText, 'user');
+            chatInput.value = '';
 
-        chatSendBtn.addEventListener('click', handleUserInput);
-        chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                handleUserInput();
-            }
-        });
-    });
+            setTimeout(() => {
+                const botResponse = "Contact 0712345678 for more info.";
+                createMessageElement(botResponse, 'bot');
+            }, 500);
+        };
+
+        chatSendBtn.addEventListener('click', handleUserInput);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleUserInput();
+            }
+        });
+    });
 </script>
 <div class="chatbot-container">
-    <button id="chatTab" class="chat-tab-btn" title="Advisor Support">
-        <i class="fas fa-comment-dots"></i>
-    </button>
-    
-    <div id="chatWindow" class="chat-window">
-        <div class="chat-header">
-            <h3>Gold Cinema Support</h3>
-            <button id="closeChatBtn"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="chat-body" id="chatBody">
-            <div class="chat-message bot-message">
-                How may I help you?
-            </div>
-        </div>
-        <div class="chat-footer">
-            <input type="text" id="chatInput" placeholder="Type a message..." />
-            <button id="chatSendBtn"><i class="fas fa-paper-plane"></i></button>
-        </div>
-    </div>
+    <button id="chatTab" class="chat-tab-btn" title="Advisor Support">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+    
+    <div id="chatWindow" class="chat-window">
+        <div class="chat-header">
+            <h3>Gold Cinema Support</h3>
+            <button id="closeChatBtn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-message bot-message">
+                How may I help you?
+            </div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Type a message..." />
+            <button id="chatSendBtn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
 </div>
 </body>
 </html>
