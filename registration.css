@@ -1,0 +1,292 @@
+/* ============================================================
+   AUTH PAGES (Login / Register) + Chatbot Styles
+   ============================================================ */
+
+/* ------------------------------ */
+/* GLOBAL STYLES */
+/* ------------------------------ */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+}
+
+/* ------------------------------ */
+/* BACKGROUND */
+/* ------------------------------ */
+#background {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: radial-gradient(circle at center, #3a00b5 0%, #1a004d 100%);
+  background:radial-gradient(circle at center, #4b00d1 0%, #1a0065 100%);
+  background-image: 
+    linear-gradient(to right, rgba(0, 49, 183, 0.6), transparent),
+    url('cinema.jpg');
+ /* path to your image */
+  background-size: cover;       /* makes the image fill the screen */
+  background-repeat: no-repeat; /* prevents tiling */
+  background-position: center;  /* centers the image */
+  background-attachment: fixed;
+}
+
+/* ------------------------------ */
+/* MAIN CONTAINER */
+/* ------------------------------ */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 50px 0;
+  background: transparent;
+}
+
+/* ------------------------------ */
+/* AUTH BOXES (Login / Register) */
+/* ------------------------------ */
+.login-box,
+.register-box {
+  background: #fff;
+  color: #333;
+  padding: 40px 50px;
+  border-radius: 15px;
+  margin: 20px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(122, 51, 255, 0.5);
+}
+
+.login-box h2,
+.register-box h2 {
+  color: #1a004d;
+  text-align: center;
+  margin: 0 0 30px;
+  font-size: 2em;
+  font-weight: 600;
+}
+
+/* ------------------------------ */
+/* FORM STYLES */
+/* ------------------------------ */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 15px;
+  font-size: 0.9em;
+  font-weight: 500;
+  color: #333;
+  text-align: left;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="cities"],
+select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  font-size: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background: #f9f9f9;
+  color: #333;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus,
+select:focus {
+  border-color:linear-gradient(45deg, #a36fff, #3a00b5);
+  box-shadow: 0 0 5px rgba(128, 104, 212, 0.5);
+}
+
+/* ------------------------------ */
+/* BUTTON STYLES */
+/* ------------------------------ */
+button[type="submit"] {
+  background:linear-gradient(45deg, #7a33ff, #3a00b5);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-size: 1rem;
+  font-weight: bold;
+  width: 100%;
+  margin: 40px 0 20px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow:0 0 15px rgba(122, 51, 255, 0.6);
+}
+
+button[type="submit"]:hover {
+  background: linear-gradient(45deg, #a36fff, #3a00b5);
+  box-shadow: 0 0 25px rgba(122, 51, 255, 1);
+  transform: translateY(-2px);
+}
+
+
+/* ------------------------------ */
+/* CTA / LINKS */
+/* ------------------------------ */
+.cta {
+  text-align: center;
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 10px;
+}
+
+.cta a {
+  color:linear-gradient(45deg, #a36fff, #3a00b5);
+  font-weight: 600;
+  text-decoration: underline;
+  margin-left: 5px;
+  transition: color 0.2s;
+}
+
+.cta a:hover {
+  color: #cc0066;
+}
+
+/* ------------------------------ */
+/* RESPONSIVENESS */
+/* ------------------------------ */
+@media (min-width: 600px) {
+  .login-box,
+  .register-box {
+    width: auto;
+    margin: 20px;
+  }
+}
+
+@media (min-width: 900px) {
+  .container {
+    flex-direction: row;
+  }
+}
+
+/* ------------------------------ */
+/* CHATBOT STYLES */
+/* ------------------------------ */
+.chatbot-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1500;
+}
+
+.chat-tab-btn {
+  background: #ff007f;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  font-size: 1.5em;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s, background 0.3s;
+}
+
+.chat-tab-btn:hover {
+  background: #ff3399;
+  transform: scale(1.1);
+}
+
+.chat-window {
+  display: none;
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  width: 300px;
+  height: 400px;
+  background: #1a004d;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.chat-window.visible {
+  display: flex !important;
+}
+
+.chat-header {
+  background: #3a00b5;
+  color: #fff;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-body {
+  flex-grow: 1;
+  padding: 15px;
+  overflow-y: auto;
+  background: #0b012b;
+}
+
+.chat-message {
+  padding: 8px 12px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  max-width: 80%;
+  line-height: 1.4;
+}
+
+.bot-message {
+  background: #3a00b5;
+  color: #fff;
+  margin-right: auto;
+  border-bottom-left-radius: 4px;
+}
+
+.user-message {
+  background: #ff007f;
+  color: #fff;
+  margin-left: auto;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-footer {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #7a33ff;
+  background: #1a004d;
+}
+
+#chatInput {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #7a33ff;
+  border-radius: 20px;
+  margin-right: 8px;
+  background: #0b012b;
+  color: #fff;
+}
+
+#chatSendBtn {
+  background: #ff007f;
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}

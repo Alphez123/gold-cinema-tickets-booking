@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Register - Gold Cinema</title>
+  <link rel="stylesheet" type="text/css" href="registration.css" />
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+
+<body>
+  <canvas id="background"></canvas>
+
+  <div class="container">
+    <div class="login-box">
+      <a href="index.html" class="back-link">← Back </a>
+      <h2>Create Your Account</h2>
+
+      <form action="register.php" id="registerForm" method="POST">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required />
+
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required />
+
+       <label for="city">City</label>
+<input list="cityList" id="city" name="city" placeholder="e.g. Kisii" required />
+<datalist id="cityList">
+  <option value="Nairobi">
+  <option value="Mombasa">
+  <option value="Kisii">
+  <option value="Nakuru">
+  <option value="Eldoret">
+  <option value="Thika">
+  <option value="Kericho">
+  <option value="Nyeri">
+  <option value="Machakos">
+  <option value="Kakamega">
+  <option value="Kwale">
+  <option value="Malindi">
+  <option value="Voi">
+  <option value="Garissa">
+  <option value="Wajir">
+  <option value="Mandera">
+  <option value="Marsabit">
+  <option value="Isiolo">
+  <option value="Meru">
+  <option value="Embu">
+  <option value="Kitui">
+  <option value="Wote">
+  <option value="Ol Kalou">
+  <option value="Kerugoya">
+  <option value="Murang'a">
+  <option value="Kiambu">
+  <option value="Lodwar">
+  <option value="Kapenguria">
+  <option value="Maralal">
+  <option value="Kitale">
+  <option value="Iten">
+  <option value="Kapsabet">
+  <option value="Kabarnet">
+  <option value="Rumuruti">
+  <option value="Narok">
+  <option value="Kajiado">
+  <option value="Bomet">
+  <option value="Mbale">
+  <option value="Bungoma">
+  <option value="Busia">
+  <option value="Siaya">
+  <option value="Homa Bay">
+  <option value="Migori">
+  <option value="Nyamira">
+  <option value="Hola">
+  <option value="Lamu">
+  <option value="Mwatate">
+  <option value="Kathwana">
+  </datalist>
+
+        <label for="addressDisplay">Physical Address</label>
+        <input type="text" id="addressDisplay" name="address" placeholder="Fetching location..." readonly />
+
+        <label for="zipCode">Zip Code</label>
+        <input type="text" id="zipCode" name="zipCode" placeholder="Enter your zip code" required />
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="e.g. alphez@gmail.com" required />
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter password" minlength="6" required />
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter password" required />
+
+        <p id="message" style="color: red;"></p>
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" placeholder="e.g. 0712345678" pattern="[0-9]{10}" required />
+
+        <button type="submit">Register</button>
+        <p id="registerMsg" style="text-align:center; font-weight:600;"></p>
+
+        <span class="cta">
+          Already have an account?
+          <a href="login.html" style="text-decoration: underline;">Login</a>
+        </span>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("registerForm");
+    const msg = document.getElementById("registerMsg");
+    const addressInput = document.getElementById("addressDisplay");
+
+    // 🔑 NEW: Function to generate a unique 10-digit ID
+    function generateUniqueId() {
+        // Generates a random number between 1000000000 (10 digits) and 9999999999
+        return Math.floor(1000000000 + Math.random() * 9000000000).toString();
+    }
+
+    // 🧭 Auto detect address
+    function getAddress(lat, lon) {
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+        .then(res => res.json())
+        .then(data => {
+          addressInput.value = data.display_name || "Address not found";
+        })
+        .catch(() => {
+          addressInput.value = "Could not detect address";
+        });
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        pos => getAddress(pos.coords.latitude, pos.coords.longitude),
+        () => addressInput.value = "Location access denied"
+      );
+    } else {
+      addressInput.value = "Geolocation not supported";
+    }
+
+    // 🧾 Registration handler
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+
+      const firstName = form.firstName.value.trim();
+      const lastName = form.lastName.value.trim();
+      const email = form.email.value.trim().toLowerCase(); 
+      const password = form.password.value;
+      const confirmPassword = form.confirmPassword.value;
+      const phone = form.phone.value.trim();
+      const city = form.city.value.trim();
+      const zip = form.zipCode.value.trim();
+      const address = form.addressDisplay.value.trim();
+
+      if (password !== confirmPassword) {
+        msg.textContent = "❌ Passwords do not match!";
+        msg.style.color = "red";
+        return;
+      }
+
+      if (localStorage.getItem("user_" + email)) {
+        msg.textContent = "⚠️ A user with this email already exists!";
+        msg.style.color = "orange";
+        return;
+      }
+      
+      // 🔑 NEW: Generate the unique ID
+      const customerId = generateUniqueId();
+
+      const user = { firstName, lastName, email, password, phone, city, zip, address, customerId }; // 🔑 Saved!
+
+      localStorage.setItem("user_" + email, JSON.stringify(user));
+
+      msg.textContent = "✅ Registration successful! Redirecting...";
+      msg.style.color = "lightgreen";
+
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 2000);
+    });
+     document.addEventListener('DOMContentLoaded', () => {
+    const chatTab = document.getElementById('chatTab');
+    const chatWindow = document.getElementById('chatWindow');
+    const closeChatBtn = document.getElementById('closeChatBtn');
+    const chatBody = document.getElementById('chatBody');
+    const chatInput = document.getElementById('chatInput');
+    const chatSendBtn = document.getElementById('chatSendBtn');
+    
+    // --- 1. Toggle Chat Window Functionality ---
+    const toggleChatWindow = () => {
+        // Adds or removes the 'visible' class to show/hide the window
+        chatWindow.classList.toggle('visible');
+        
+        if (chatWindow.classList.contains('visible')) {
+            chatInput.focus();
+        }
+    };
+
+    // Attach the toggle function to the floating icon and the close button
+    chatTab.addEventListener('click', toggleChatWindow);
+    closeChatBtn.addEventListener('click', toggleChatWindow);
+
+    
+    // --- 2. Chat Functionality (Fixed Response Logic) ---
+    const handleUserInput = () => {
+        const userText = chatInput.value.trim();
+        if (userText === '') return;
+
+        // Display user message
+        // ... (code to create user message div) ...
+
+        chatInput.value = '';
+
+        // Generate fixed bot response after a short delay
+        setTimeout(() => {
+            const botResponse = "Contact 0712345678 for more info.";
+            // ... (code to create bot message div) ...
+            
+            // Auto-scroll to the bottom
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }, 500);
+        
+        chatBody.scrollTop = chatBody.scrollHeight;
+    };
+
+    // Send button click and Enter key press listeners
+    chatSendBtn.addEventListener('click', handleUserInput);
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            handleUserInput();
+        }
+    });
+});
+</script>
+
+<div class="chatbot-container">
+    <button id="chatTab" class="chat-tab-btn" title="Advisor Support">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+    
+    <div id="chatWindow" class="chat-window">
+        <div class="chat-header">
+            <h3>Advisor Support</h3>
+            <button id="closeChatBtn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-message bot-message">
+                How may I help you?
+            </div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Type a message..." />
+            <button id="chatSendBtn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

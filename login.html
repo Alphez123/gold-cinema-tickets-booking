@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Gold Cinema</title>
+  <link rel="stylesheet" type="text/css" href="login.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="login-box">
+      <a href="index.html" class="back-link">← Back</a>
+
+      <h2>Login</h2>
+
+      <form id="loginForm" action="login.php" method="POST">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="e.g. alphez@gmail.com"
+          required
+        />
+
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Enter password"
+          required
+        />
+
+        <button  class ="button"type="submit">Login</button>
+        <p id="loginMsg" style="text-align:center; font-weight:600;"></p>
+
+        <span class="cta">
+          Don’t have an account?
+          <a href="registration.html" style="text-decoration: underline;">Register Here</a>
+        </span>
+        <span class="cta">
+          <a href="forgot-password.html" style="text-decoration: underline;">Forgot Password?</a>
+        </span>
+      </form>
+    </div>
+  </div>
+
+ <script>
+    const form = document.getElementById("loginForm");
+    const msg = document.getElementById("loginMsg");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // 🟢 FIX 1: Force email to lowercase for matching the stored key
+      const email = form.email.value.trim().toLowerCase(); 
+      const password = form.password.value.trim();
+
+      // Retrieve user data using the consistent key
+      const storedUser = localStorage.getItem("user_" + email);
+
+      if (!storedUser) {
+        msg.textContent = "❌ No account found with this email!";
+        msg.style.color = "red";
+        return;
+      }
+
+      const user = JSON.parse(storedUser);
+
+      // We are comparing the login input password (trimmed) against the stored password
+      if (user.password !== password) {
+        msg.textContent = "❌ Incorrect password!";
+        msg.style.color = "red";
+        return;
+      }
+
+      // 🟢 FIX 2: Save ONLY the email string to "loggedInUser"
+      localStorage.setItem("loggedInUser", email); 
+
+      msg.textContent = "✅ Login successful! Redirecting...";
+      msg.style.color = "lightgreen";
+
+      setTimeout(() => {
+        window.location.href = "home-page.html";
+      }, 2000);
+    });
+
+    // ✅ Auto-redirect if already logged in (Checks for existence of the login status key)
+    window.addEventListener("DOMContentLoaded", () => {
+      const currentUser = localStorage.getItem("loggedInUser");
+      if (currentUser) {
+        window.location.href = "home-page.html";
+      }
+    });
+     document.addEventListener('DOMContentLoaded', () => {
+    const chatTab = document.getElementById('chatTab');
+    const chatWindow = document.getElementById('chatWindow');
+    const closeChatBtn = document.getElementById('closeChatBtn');
+    const chatBody = document.getElementById('chatBody');
+    const chatInput = document.getElementById('chatInput');
+    const chatSendBtn = document.getElementById('chatSendBtn');
+    
+    // --- 1. Toggle Chat Window Functionality ---
+    const toggleChatWindow = () => {
+        // Adds or removes the 'visible' class to show/hide the window
+        chatWindow.classList.toggle('visible');
+        
+        if (chatWindow.classList.contains('visible')) {
+            chatInput.focus();
+        }
+    };
+
+    // Attach the toggle function to the floating icon and the close button
+    chatTab.addEventListener('click', toggleChatWindow);
+    closeChatBtn.addEventListener('click', toggleChatWindow);
+
+    
+    // --- 2. Chat Functionality (Fixed Response Logic) ---
+    const handleUserInput = () => {
+        const userText = chatInput.value.trim();
+        if (userText === '') return;
+
+        // Display user message
+        // ... (code to create user message div) ...
+
+        chatInput.value = '';
+
+        // Generate fixed bot response after a short delay
+        setTimeout(() => {
+            const botResponse = "Contact 0712345678 for more info.";
+            // ... (code to create bot message div) ...
+            
+            // Auto-scroll to the bottom
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }, 500);
+        
+        chatBody.scrollTop = chatBody.scrollHeight;
+    };
+
+    // Send button click and Enter key press listeners
+    chatSendBtn.addEventListener('click', handleUserInput);
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            handleUserInput();
+        }
+    });
+});
+</script>
+
+<div class="chatbot-container">
+    <button id="chatTab" class="chat-tab-btn" title="Advisor Support">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+    
+    <div id="chatWindow" class="chat-window">
+        <div class="chat-header">
+            <h3>Advisor Support</h3>
+            <button id="closeChatBtn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-message bot-message">
+                How may I help you?
+            </div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Type a message..." />
+            <button id="chatSendBtn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

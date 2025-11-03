@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Gold Cinema - Home</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="home-page.css">
+</head>
+
+<body>
+  <div class="notification-float">
+    <button id="notificationBtn" class="float-icon-btn">
+      <i class="fas fa-bell"></i>
+      <span id="notificationCount" class="badge">0</span>
+    </button>
+    <div id="notificationDropdown" class="dropdown-content">
+      <p class="dropdown-header">Notifications</p>
+      <div id="notificationList">
+        <p class="empty-message">No new notifications.</p>
+      </div>
+    </div>
+  </div>
+  
+  <button class="menu-btn" id="menu-btn">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <div class="sidebar" id="sidebar">
+    <h2><i class="fas fa-user-circle"></i> Menu</h2>
+    <button class="menubtn">
+      <a href="account.html"><i class="fas fa-user"></i> My Account</a>
+    </button>
+    <button class="menubtn" id="openTicketsModalBtn">
+      <i class="fas fa-ticket-alt"></i> Tickets Booked
+    </button>
+    <button class="menubtn" id="logoutBtn">
+      <a href="login.html"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+    </button>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+
+  <nav>
+    <div class="logo">Gold Cinema</div>
+    <ul>
+      <li><a href="#movies">Movies</a></li>
+      <li><a href="#concerts">Concerts</a></li>
+      <li><a href="#plays"></a></li>
+    </ul>
+  </nav>
+
+  <section id="hero" class="hero">
+    <h1>Welcome to Gold Cinema Ticket Booking</h1>
+    <p>Experience movies, plays, and concerts like never before — luxury, sound, and the magic of the big screen.</p>
+    <button id="bookNowBtn" class="button">Book Now</button>
+  </section>
+
+  <section id="concerts">
+    <h2>Now Showing Concerts</h2>
+    <div class="movie-grid">
+      <div class="movie">
+        <a href="booking.html" onclick="bookMovie('Taylor Swift Concert')">
+          <img src="tailor.jpg" alt="Taylor Swift Concert">
+        </a>
+        <div class="movie-info">
+          <h3>Taylor Swift Concert Show</h3>
+          <p>Concert | 1h 30m</p>
+        </div>
+      </div>
+      <div class="movie">
+        <a href="booking.html" onclick="bookMovie('Free Rock Concert')">
+          <img src="freerock-concert.jpg" alt="Free Rock Concert">
+        </a>
+        <div class="movie-info">
+          <h3>Free Rock Concert</h3>
+          <p>Concert | 1h 55m</p>
+        </div>
+      </div>
+      <div class="movie">
+        <a href="other-movies.html">
+          <img src="other-movies.jpg" alt="Other Movies">
+        </a>
+        <div class="movie-info">
+          <h3>Book Other Movies, Shows and More</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="movies">
+    <h2>Now Showing Movies</h2>
+    <div class="movie-grid">
+      <div class="movie">
+        <a href="booking.html" onclick="bookMovie('Midnight Chase')">
+          <img src="childsplay.jpg" alt="Midnight Chase">
+        </a>
+        <div class="movie-info">
+          <h3>Midnight Chase (Inspired by Inception)</h3>
+          <p>Thriller | 2h 10m</p>
+        </div>
+      </div>
+      <div class="movie">
+        <a href="booking.html" onclick="bookMovie('Echoes of Light')">
+          <img src="https://m.media-amazon.com/images/I/91kFYg4fX3L._AC_UF894,1000_QL80_.jpg" alt="Interstellar Poster" alt="Echoes of Light">
+        </a>
+        <div class="movie-info">
+          <h3>Echoes of Light (Inspired by Interstellar)</h3>
+          <p>Drama | 1h 55m</p>
+        </div>
+      </div>
+      <div class="movie">
+        <a href="other-movies.html">
+          <img src="other-movies.jpg" alt="Other Movies">
+        </a>
+        <div class="movie-info">
+          <h3>Book Other Movies, Series and More</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="movies">
+    <h2>Now Showing Plays</h2>
+    <div class="movie-grid">
+      <div class="movie">
+        <a href="booking.html" onclick="bookMovie('Cold Play')">
+          <img src="coldplay.jpg" alt="Cold Play">
+        </a>
+        <div class="movie-info">
+          <h3>Cold Play</h3>
+          <p>Play | 2h 10m</p>
+        </div>
+      </div>
+      <div class="movie">
+        <a href="booking.html" onclick="bookMovie('Childs Play')">
+          <img src="childsplay.jpg" alt="Childs Play">
+        </a>
+        <div class="movie-info">
+          <h3>Child's Play</h3>
+          <p>Drama | 1h 55m</p>
+        </div>
+      </div>
+      <div class="movie">
+        <a href="other-movies.html">
+          <img src="other-movies.jpg" alt="Other Movies">
+        </a>
+        <div class="movie-info">
+          <h3>Book Other Movies, Series and More</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <footer>© 2025 Gold Cinema. All rights reserved.</footer>
+
+  <div id="bookedTicketsModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2><i class="fas fa-ticket-alt"></i> Your Booked Tickets</h2>
+      <div id="bookedTicketsList">
+        <p style="text-align: center; color: #c9a6ff;">Loading tickets...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="chatbot-container">
+    <button id="chatTab" class="chat-tab-btn" title="Advisor Support">
+      <i class="fas fa-comment-dots"></i>
+    </button>
+    
+    <div id="chatWindow" class="chat-window">
+      <div class="chat-header">
+        <h3>Advisor Support</h3>
+        <button id="closeChatBtn"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="chat-body" id="chatBody">
+        <div class="chat-message bot-message">
+          How may I help you?
+        </div>
+      </div>
+      <div class="chat-footer">
+        <input type="text" id="chatInput" placeholder="Type a message..." />
+        <button id="chatSendBtn"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Logout functionality
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  // Clear all user data from localStorage
+  localStorage.removeItem("loggedInUser");
+  localStorage.removeItem("userNotifications");
+  localStorage.removeItem("userBookings");
+  localStorage.removeItem("selectedMovie");
+  
+  // Redirect to login page
+  alert("You've been logged out successfully.");
+  window.location.href = "login.html";
+});
+    // DOM Elements
+    const menuBtn = document.getElementById('menu-btn');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const notificationBtn = document.getElementById('notificationBtn');
+    const notificationDropdown = document.getElementById('notificationDropdown');
+    const modal = document.getElementById('bookedTicketsModal');
+    const openModalBtn = document.getElementById('openTicketsModalBtn');
+    const closeModalBtn = document.querySelector('.close-btn');
+    const bookNowBtn = document.getElementById('bookNowBtn');
+    const chatTab = document.getElementById('chatTab');
+    const chatWindow = document.getElementById('chatWindow');
+    const closeChatBtn = document.getElementById('closeChatBtn');
+    const chatBody = document.getElementById('chatBody');
+    const chatInput = document.getElementById('chatInput');
+    const chatSendBtn = document.getElementById('chatSendBtn');
+
+    // Menu Toggle Functionality
+    menuBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+    });
+
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+
+    // Notification Helper Functions
+    function getNotifications() {
+      const storedNotifications = localStorage.getItem('userNotifications');
+      return storedNotifications ? JSON.parse(storedNotifications) : [];
+    }
+
+    function saveNotifications(notifications) {
+      localStorage.setItem('userNotifications', JSON.stringify(notifications));
+    }
+
+    function markNotificationAsRead(index) {
+      const notifications = getNotifications();
+      if (notifications[index]) {
+        notifications[index].read = true;
+        saveNotifications(notifications);
+        renderNotifications();
+      }
+    }
+
+    function renderNotifications() {
+      const notifications = getNotifications();
+      const listElement = document.getElementById('notificationList');
+      const countElement = document.getElementById('notificationCount');
+      
+      listElement.innerHTML = '';
+      let unreadCount = 0;
+      
+      if (notifications.length === 0) {
+        listElement.innerHTML = '<p class="empty-message">No notifications.</p>';
+      }
+      
+      notifications.forEach((notification, index) => {
+        const item = document.createElement('div');
+        item.className = notification.read ? 'notification-item-content read' : 'notification-item-content unread';
+        item.dataset.index = index;
+        
+        if (!notification.read) {
+          unreadCount++;
+        }
+        
+        item.innerHTML = `<span class="notification-text">${notification.message}</span>`;
+        
+        const actionButton = document.createElement('button');
+        actionButton.className = 'archive-btn';
+        actionButton.textContent = notification.read ? 'READ' : 'Mark Read';
+        
+        if (notification.read) {
+          actionButton.disabled = true;
+          actionButton.classList.add('disabled');
+        }
+        
+        actionButton.addEventListener('click', (e) => {
+          e.stopPropagation();
+          markNotificationAsRead(index);
+        });
+        
+        item.appendChild(actionButton);
+        listElement.appendChild(item);
+      });
+      
+      countElement.textContent = unreadCount;
+      countElement.style.display = unreadCount > 0 ? 'block' : 'none';
+    }
+
+    function addNotification(message) {
+      const notifications = getNotifications();
+      notifications.unshift({
+        message: message,
+        read: false,
+        timestamp: new Date().toISOString()
+      });
+      saveNotifications(notifications);
+      renderNotifications();
+    }
+
+    // Booked Tickets Modal
+    function renderBookedTickets() {
+      const bookings = JSON.parse(localStorage.getItem('userBookings') || '[]');
+      const listContainer = document.getElementById('bookedTicketsList');
+
+      listContainer.innerHTML = '';
+
+      if (bookings.length === 0) {
+        listContainer.innerHTML = '<p style="text-align: center; color: #c9a6ff; padding: 50px;">No tickets booked yet. Start your cinematic journey now!</p>';
+        return;
+      }
+
+      bookings.forEach(booking => {
+        const item = document.createElement('div');
+        item.className = 'booking-item';
+        
+        const dateObj = new Date(booking.date);
+        const formattedDate = dateObj.toLocaleDateString('en-US', { 
+          weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' 
+        });
+
+        item.innerHTML = `
+          <div style="flex-grow: 1;">
+            <h4 style="margin: 0 0 5px 0; color: #ffcc00; font-size: 1.1em;">${booking.movie}</h4>
+            <p style="margin: 3px 0; font-size: 0.9em; color: #c9a6ff;">
+              🗓️ <strong>Date:</strong> ${formattedDate} at ${booking.time}<br>
+              🪑 <strong>Seats:</strong> ${booking.seats}<br>
+              #️⃣ <strong>ID:</strong> ${booking.bookingId}
+            </p>
+          </div>
+        `;
+        listContainer.appendChild(item);
+      });
+    }
+
+    // Chat Functionality
+    function toggleChatWindow() {
+      chatWindow.classList.toggle('visible');
+      
+      if (chatWindow.classList.contains('visible')) {
+        chatInput.focus();
+      }
+    }
+
+    function handleUserInput() {
+      const userText = chatInput.value.trim();
+      if (userText === '') return;
+
+      const userMessageDiv = document.createElement('div');
+      userMessageDiv.className = 'chat-message user-message';
+      userMessageDiv.textContent = userText;
+      chatBody.appendChild(userMessageDiv);
+
+      chatInput.value = '';
+
+      setTimeout(() => {
+        const botResponse = "Contact 0712345678 for more info.";
+        const botMessageDiv = document.createElement('div');
+        botMessageDiv.className = 'chat-message bot-message';
+        botMessageDiv.textContent = botResponse;
+        chatBody.appendChild(botMessageDiv);
+
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 500);
+      
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    // Initialize on DOM Load
+    document.addEventListener("DOMContentLoaded", () => {
+      const loggedInUser = localStorage.getItem("loggedInUser");
+      if (!loggedInUser) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      // Initialize and render all persistent notifications
+      renderNotifications(); 
+      
+      // Modal Handling Logic
+      openModalBtn.addEventListener('click', () => {
+        renderBookedTickets();
+        modal.style.display = 'block';
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+      });
+
+      closeModalBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+
+      window.addEventListener('click', (event) => {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+        }
+        
+        // Close notification dropdown if clicking outside
+        if (!event.target.closest('.notification-float') && !event.target.closest('.notification-float') && notificationDropdown.classList.contains('show')) {
+          notificationDropdown.classList.remove('show');
+        }
+      });
+
+      // Notification Button Handler
+      notificationBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); 
+        notificationDropdown.classList.toggle('show');
+      });
+      
+      // Book Now Button Scroll
+      bookNowBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        document.getElementById("movies").scrollIntoView({ behavior: "smooth" });
+      });
+
+      // Chat Functionality
+      chatTab.addEventListener('click', toggleChatWindow);
+      closeChatBtn.addEventListener('click', toggleChatWindow);
+      chatSendBtn.addEventListener('click', handleUserInput);
+      chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          handleUserInput();
+        }
+      });
+      
+      // Add sample notifications for demo
+      if (getNotifications().length === 0) {
+        addNotification("Welcome to Gold Cinema! Book your first ticket to get started.");
+        addNotification("Special offer: Get 20% off on your first booking!");
+      }
+    });
+
+    // Save selected movie to localStorage
+    function bookMovie(movieName) {
+      localStorage.setItem("selectedMovie", movieName);
+      window.location.href = "booking.html";
+    }
+  </script>
+</body>
+</html>

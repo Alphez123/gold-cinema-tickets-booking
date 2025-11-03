@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Your Movie</title>
+  <link rel="stylesheet" href="other-movies.css" />
+
+<body>
+  <div class="notification-float">
+    <button id="persistentNotificationBtn" class="float-icon-btn" title="Notifications">
+        <i class="fas fa-bell"></i>
+        <span id="notificationCount" class="badge-float" style="display: none;">0</span>
+    </button>
+    
+    <div id="notificationDropdown" class="dropdown-content">
+        <p class="dropdown-header">Notifications</p>
+        <div id="notificationList">
+            <p class="empty-message">Loading notifications...</p>
+        </div>
+    </div>
+
+    <div id="instantBookingWindow" class="instant-window">
+        <p>Booking Confirmed! 🎉</p>
+        <span id="instantBookingDetails"></span>
+    </div>
+</div>
+    <canvas id="background"></canvas>
+  <div class="container">
+    <div class="booking-box">
+       <a href="home-page.html" class="back-link">←Back to Home</a>
+    <h1 id="movie-title"></h1>
+    <form id="booking-form">
+        <form id="bookingForm">
+                <label for="date">Choose Date</label>
+        <input type="date" id="date" name="date" required>
+
+        <label for="time">Choose Time</label>
+        <select id="time" name="time" required>
+          <option value="">Select Time</option>
+          <option value="10:00 AM">10:00 AM</option>
+          <option value="1:00 PM">1:00 PM</option>
+          <option value="4:00 PM">4:00 PM</option>
+          <option value="7:00 PM">7:00 PM</option>
+        </select>
+
+                <label>Select Your Seat</label>
+        <div class="seat-map">
+          <div class="seat-row">
+            <button type="button" class="seat">A1</button>
+            <button type="button" class="seat">A2</button>
+            <button type="button" class="seat">A3</button>
+            <button type="button" class="seat">A4</button>
+          </div>
+          <div class="seat-row">
+            <button type="button" class="seat">B1</button>
+            <button type="button" class="seat">B2</button>
+            <button type="button" class="seat">B3</button>
+            <button type="button" class="seat">B4</button>
+          </div>
+        </div>
+
+                <button type="submit" class="button">Confirm Booking</button>
+      </form>
+    </div>
+  </div>
+  
+ <script>
+    // --- Notification Helper Functions (REPLICATED FROM HOME PAGE) ---
+    // ... (Your notification functions: getNotifications, saveNotifications, markNotificationAsRead, renderNotifications) ...
+    function getNotifications() {
+        const storedNotifications = localStorage.getItem('userNotifications');
+        return storedNotifications ? JSON.parse(storedNotifications) : [];
+    }
+
+    function saveNotifications(notifications) {
+        localStorage.setItem('userNotifications', JSON.stringify(notifications));
+    }
+
+    function markNotificationAsRead(index) {
+        const notifications = getNotifications();
+        if (notifications[index]) {
+            notifications[index].read = true;
+            saveNotifications(notifications);
+            renderNotifications();
+        }
+    }
+
+    function renderNotifications() {
+        const notifications = getNotifications();
+        const listElement = document.getElementById('notificationList');
+        const countElement = document.getElementById('notificationCount');
+        
+        listElement.innerHTML = '';
+        let unreadCount = 0;
+        
+        if (notifications.length === 0) {
+            listElement.innerHTML = '<p class="empty-message">No notifications.</p>';
+        }
+        
+        notifications.forEach((notification, index) => {
+            const item = document.createElement('div');
+            item.className = notification.read ? 'notification-item-content read' : 'notification-item-content unread';
+            item.dataset.index = index;
+            
+            if (!notification.read) {
+                unreadCount++;
+            }
+            
+            item.innerHTML = `<span class="notification-text">${notification.message}</span>`;
+            
+            const actionButton = document.createElement('button');
+            actionButton.className = 'archive-btn';
+            actionButton.textContent = notification.read ? 'READ' : 'Mark Read';
+            
+            if (notification.read) {
+                actionButton.disabled = true;
+                actionButton.classList.add('disabled');
+            }
+            
+            actionButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                markNotificationAsRead(index);
+            });
+            
+            item.appendChild(actionButton);
+            listElement.appendChild(item);
+        });
+        
+        countElement.textContent = unreadCount;
+        countElement.style.display = unreadCount > 0 ? 'block' : 'none';
+    }
+
+
+    // --- Main Document Logic ---
+    document.addEventListener("DOMContentLoaded", () => {
+        // 1. Initialize Notifications
+        renderNotifications();
+        
+        // 2. Floating Notification Button Handler (Open Dropdown)
+        const persistentBtn = document.getElementById("persistentNotificationBtn");
+        const notificationDropdown = document.getElementById('notificationDropdown');
+
+        persistentBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            notificationDropdown.classList.toggle('show');
+        });
+
+        // 3. Close the dropdown if the user clicks outside of it
+        window.addEventListener('click', (event) => {
+            if (!event.target.closest('.notification-float') && notificationDropdown.classList.contains('show')) {
+                notificationDropdown.classList.remove('show');
+            }
+        });
+
+        // --- Movie Title Display Logic (The part that was not working) ---
+        // This relies on the home-page setting 'selectedMovie' in localStorage
+        const movieName = localStorage.getItem("selectedMovie");
+        const movieTitle = document.getElementById("movie-title");
+
+        if (movieName) {
+            movieTitle.textContent = `Booking for ${movieName}`;
+        } else {
+            movieTitle.textContent = "Please return to the home page and select a movie."; // Better error message
+        }
+
+        // Seat selection toggle
+        const seats = document.querySelectorAll(".seat");
+        seats.forEach((seat) => {
+            seat.addEventListener("click", () => {
+                seat.classList.toggle("selected");
+            });
+        });
+
+        // Handle booking submission
+        document
+            .getElementById("booking-form") // Corrected to match the single form ID
+            .addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                const date = document.getElementById("date").value;
+                const time = document.getElementById("time").value;
+                const selectedSeats = Array.from(
+                    document.querySelectorAll(".seat.selected")
+                ).map((s) => s.textContent);
+
+                if (!date || !time || selectedSeats.length === 0) {
+                    alert("⚠️ Please select date, time, and at least one seat.");
+                    return;
+                }
+                
+                const title = movieName || "Your Movie";
+
+                // 1. STORE BOOKING DETAILS (NEW FEATURE)
+                const newBooking = {
+                    movie: title,
+                    date: date,
+                    time: time,
+                    seats: selectedSeats.join(", "),
+                    bookingId: Date.now() // Unique ID
+                };
+                let bookings = JSON.parse(localStorage.getItem('userBookings') || '[]');
+                bookings.unshift(newBooking);
+                localStorage.setItem('userBookings', JSON.stringify(bookings));
+                // END OF NEW FEATURE
+
+                // 2. Create the detailed notification message for persistent storage
+                const notificationMessage = `
+                    🎫 **UPCOMING: ${title}** on ${date} at ${time}. Seats: ${selectedSeats.join(", ")}.
+                `.trim().replace(/\s+/g, ' ');
+
+                // 3. Store the notification data for the homepage to process
+                let notifications = getNotifications();
+                notifications.unshift({ 
+                    message: notificationMessage, 
+                    read: false, 
+                    date: new Date().toISOString() 
+                });
+                saveNotifications(notifications);
+
+                // 4. Show the instant booking window
+                const instantWindow = document.getElementById('instantBookingWindow');
+                const instantDetails = document.getElementById('instantBookingDetails');
+                const instantBadge = document.getElementById('notificationCount');
+
+                instantDetails.textContent = `${title}, Date: ${date}, Seats: ${selectedSeats.join(", ")}`;
+                instantWindow.style.display = 'block';
+                // Trigger render for the badge update
+                renderNotifications(); 
+
+                // 5. Redirect after a delay so user sees the instant window
+                setTimeout(() => {
+                    window.location.href = "home-page.html";
+                }, 2000); 
+            });
+        
+        // Prevent choosing past dates logic
+        const dateInput = document.getElementById('date');
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        const todayStr = `${yyyy}-${mm}-${dd}`;
+        dateInput.min = todayStr;
+    });
+
+    // --- CHATBOT LOGIC (Combined and Fixed) ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const chatTab = document.getElementById('chatTab');
+        const chatWindow = document.getElementById('chatWindow');
+        const closeChatBtn = document.getElementById('closeChatBtn');
+        const chatBody = document.getElementById('chatBody');
+        const chatInput = document.getElementById('chatInput');
+        const chatSendBtn = document.getElementById('chatSendBtn');
+
+        // Helper to create chat messages
+        const createMessageElement = (message, type) => {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `chat-message ${type}-message`;
+            msgDiv.textContent = message;
+            chatBody.appendChild(msgDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        };
+
+        // Toggle Chat Window
+        const toggleChatWindow = () => {
+            chatWindow.classList.toggle('visible');
+            if (chatWindow.classList.contains('visible')) {
+                chatInput.focus();
+            }
+        };
+
+        chatTab.addEventListener('click', toggleChatWindow);
+        closeChatBtn.addEventListener('click', toggleChatWindow);
+
+        // Chat Input Handler
+        const handleUserInput = () => {
+            const userText = chatInput.value.trim();
+            if (userText === '') return;
+
+            createMessageElement(userText, 'user');
+            chatInput.value = '';
+
+            setTimeout(() => {
+                const botResponse = "Contact 0712345678 for more info.";
+                createMessageElement(botResponse, 'bot');
+            }, 500);
+        };
+
+        chatSendBtn.addEventListener('click', handleUserInput);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleUserInput();
+            }
+        });
+    });
+</script>
+<div class="chatbot-container">
+    <button id="chatTab" class="chat-tab-btn" title="Advisor Support">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+    
+    <div id="chatWindow" class="chat-window">
+        <div class="chat-header">
+            <h3>Gold Cinema Support</h3>
+            <button id="closeChatBtn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-message bot-message">
+                How may I help you?
+            </div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Type a message..." />
+            <button id="chatSendBtn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

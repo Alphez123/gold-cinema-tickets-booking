@@ -1,0 +1,1031 @@
+
+    /* 🌐 BASE STYLES */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    nav.menu-open ul {
+      display: flex;
+    }
+
+    /* --- Styles for Tickets Booked Section --- */
+    #tickets-booked {
+      padding: 40px 20px;
+      background-color: #f9f9f9;
+      border-top: 5px solid #ffcc00;
+    }
+
+    #tickets-booked h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+      font-size: 2em;
+    }
+
+    .ticket-list-container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .booked-ticket-item {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border-left: 5px solid #e74c3c;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ticket-details {
+      flex-grow: 1;
+    }
+
+    .ticket-details h4 {
+      margin: 0 0 5px 0;
+      color: #e74c3c;
+      font-size: 1.2em;
+    }
+
+    .ticket-details p {
+      margin: 3px 0;
+      font-size: 0.9em;
+      color: #555;
+    }
+
+    .ticket-status {
+      font-weight: bold;
+      color: green;
+      padding: 5px 10px;
+      border-radius: 5px;
+      background-color: #e8f5e9;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1a0065 0%, #4b00d1 100%);
+      background-image: 
+    linear-gradient(to right, rgba(0, 49, 183, 0.6), transparent),
+    url('cinema.jpg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+      max-height: 100vh;
+      padding-bottom: 80px;
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 0;
+      background: none;
+    }
+
+    /* 🧭 NAVBAR */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1em 6%;
+      background: rgba(26, 0, 101, 0.95);
+      border-bottom: 2px solid rgba(122, 51, 255, 0.8);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    nav .logo {
+      font-size: 1.8em;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 0 10px #a36fff, 0 0 20px #7a33ff;
+      margin-left: 2em;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2em;
+    }
+
+    nav ul li a {
+      color: #f0f0f0;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s, text-shadow 0.3s;
+      padding: 8px 15px;
+      border-radius: 5px;
+    }
+
+    nav ul li a:hover {
+      color: #d8b4ff;
+      text-shadow: 0 0 10px #a36fff, 0 0 20px #7a33ff;
+      background: rgba(122, 51, 255, 0.2);
+    }
+
+    nav ul li .login-btn {
+      border: 1px solid #c9a6ff;
+      padding: 8px 18px;
+      border-radius: 8px;
+      background: rgba(122, 51, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    nav ul li .login-btn:hover {
+      background: linear-gradient(45deg, #7a33ff, #3a00b5);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(122, 51, 255, 0.8);
+      transform: translateY(-2px);
+    }
+
+    /* 🎥 HERO SECTION */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 2;
+      padding: 0 1em;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .hero h1 {
+      font-size: 3.5em;
+      margin-bottom: 0.5em;
+      color: #fff;
+      text-shadow: 0 0 25px #7a33ff, 0 0 60px #3a00b5;
+      animation: glowPulse 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowPulse {
+      from {
+        text-shadow: 0 0 20px #7a33ff, 0 0 40px #3a00b5;
+      }
+      to {
+        text-shadow: 0 0 40px #c9a6ff, 0 0 80px #7a33ff;
+      }
+    }
+
+    .hero p {
+      font-size: 1.3em;
+      max-width: 600px;
+      margin-bottom: 2em;
+      color: #ddd;
+      line-height: 1.6;
+    }
+
+    /* 🟢 BUTTON STYLES */
+    .button {
+      background: linear-gradient(45deg, #7a33ff, #3a00b5);
+      color: #fff;
+      font-weight: bold;
+      padding: 1em 2.2em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 0 15px rgba(122, 51, 255, 0.6);
+      text-transform: uppercase;
+      font-size: 1.1em;
+      letter-spacing: 1px;
+    }
+
+    .button:hover {
+      background: linear-gradient(45deg, #a36fff, #3a00b5);
+      box-shadow: 0 0 25px rgba(122, 51, 255, 1);
+      transform: scale(1.05);
+    }
+
+    .menubtn {
+      background: linear-gradient(45deg, #7a33ff, #3a00b5);
+      color: #fff;
+      font-weight: bold;
+      padding: 0.9em 1.5em;
+      margin: 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 0 15px rgba(122, 51, 255, 0.6);
+      text-transform: uppercase;
+      font-size: 1em;
+      width: 90%;
+      text-align: left;
+    }
+
+    .menubtn:hover {
+      background: linear-gradient(45deg, #a36fff, #3a00b5);
+      box-shadow: 0 0 25px rgba(122, 51, 255, 1);
+      transform: translateX(5px);
+    }
+
+    .menubtn a {
+      color: white;
+      text-decoration: none;
+      display: block;
+    }
+
+    /* 🎞 NOW SHOWING SECTION */
+    #movies {
+      padding: 6em 10%;
+      background: none;
+      z-index: 2;
+      position: relative;
+    }
+
+    #movies h2 {
+      text-align: center;
+      font-size: 2.5em;
+      color: #c9a6ff;
+      margin-bottom: 1.5em;
+      text-shadow: 0 0 20px #7a33ff;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    #movies h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #7a33ff, transparent);
+    }
+
+    #concerts {
+      padding: 6em 10%;
+      background: none;
+      z-index: 2;
+      position: relative;
+    }
+
+    #concerts h2 {
+      text-align: center;
+      font-size: 2.5em;
+      color: #c9a6ff;
+      margin-bottom: 1.5em;
+      text-shadow: 0 0 20px #7a33ff;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    #concerts h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #7a33ff, transparent);
+    }
+
+    .movie-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5em;
+    }
+
+    .movie {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      overflow: hidden;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(122, 51, 255, 0.15);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(122, 51, 255, 0.2);
+    }
+
+    .movie img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .movie img:hover {
+      transform: scale(1.05);
+    }
+
+    .movie h3 {
+      color: #fff;
+      margin: 1em 0 0.5em;
+      font-size: 1.3em;
+    }
+
+    .movie p {
+      color: #ccc;
+      margin-bottom: 1em;
+      font-size: 0.95em;
+    }
+
+    .movie:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 30px rgba(122, 51, 255, 0.6);
+      border-color: rgba(122, 51, 255, 0.5);
+    }
+
+    /* ❤️ FOOTER */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      padding: 1.2em 0;
+      background: rgba(26, 0, 101, 0.95);
+      border-top: 1px solid rgba(122, 51, 255, 0.5);
+      color: #c9a6ff;
+      font-weight: 500;
+      font-size: 1em;
+      letter-spacing: 0.5px;
+      z-index: 100;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .menu-btn {
+      position: fixed;
+      margin-bottom: 30px;
+      top: 15px;
+      right: 20px;
+      font-size: 26px;
+      cursor: pointer;
+      background: linear-gradient(45deg, #7a33ff, #3a00b5);
+      color: white;
+      border-radius: 8px;
+      border:none;
+      padding: 10px 14px;
+      z-index: 9999;
+      transition: 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+    .menu-btn:hover {
+      background: linear-gradient(45deg, #a36fff, #3a00b5);
+      transform: scale(1.1);
+    }
+
+    /* Sidebar (hidden by default) */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100%;
+      background: linear-gradient(180deg, #1a0065 0%, #3a00b5 100%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      padding: 40px 25px;
+      transition: left 0.4s ease;
+      z-index: 9998;
+      box-shadow: 5px 0 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .sidebar h2 {
+      margin-bottom: 30px;
+      font-size: 24px;
+      border-bottom: 2px solid #7a33ff;
+      padding-bottom: 15px;
+      text-align: center;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      padding: 12px 0;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+    .sidebar a:hover {
+      color: #d8b4ff;
+      padding-left: 10px;
+    }
+
+    /* Overlay (dark background when menu opens) */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s ease;
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+    }
+
+    /* Active states */
+    .sidebar.active {
+      left: 0;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* 🔔 NEW FLOATING NOTIFICATION ICON CONTAINER */
+    .notification-float {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+    }
+
+    /* 🔔 NEW FLOATING NOTIFICATION BUTTON */
+    .float-icon-btn {
+      background: rgba(122, 51, 255, 0.95);
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      width: 50px;
+      height: 50px;
+      font-size: 1.3em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    .float-icon-btn:hover {
+      background: #7a33ff;
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(122, 51, 255, 0.6);
+    }
+
+    /* === Notification Badge Styles === */
+    .badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      padding: 4px 8px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #ff4d4d, #ff3333);
+      color: #ffffff;
+      font-size: 0.75em;
+      font-weight: 700;
+      line-height: 1;
+      box-shadow: 0 0 10px rgba(255, 77, 77, 0.7);
+      display: none;
+      z-index: 25;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    /* Optional animation for showing badge */
+    .badge.show {
+      display: inline-block;
+      transform: scale(1.1);
+      opacity: 1;
+    }
+
+    /* ⚠️ ADJUSTED DROPDOWN POSITION FOR FIXED BUTTON */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: calc(100% + 10px);
+      background: rgba(26, 0, 101, 0.98);
+      min-width: 320px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+      z-index: 20;
+      border-radius: 10px;
+      border: 1px solid #7a33ff;
+      max-height: 350px;
+      overflow-y: auto;
+      backdrop-filter: blur(10px);
+    }
+
+    .dropdown-content.show {
+      display: block;
+    }
+
+    .dropdown-header {
+      padding: 15px 20px;
+      border-bottom: 1px solid #7a33ff;
+      font-weight: 600;
+      color: #c9a6ff;
+      font-size: 1.1em;
+      text-transform: uppercase;
+      background: rgba(122, 51, 255, 0.2);
+    }
+
+    /* Notification Items */
+    .notification-item-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      border-bottom: 1px solid rgba(122, 51, 255, 0.3);
+      color: #f0f0f0;
+      font-size: 0.95em;
+      transition: background-color 0.2s;
+    }
+
+    .notification-item-content.unread {
+      background-color: rgba(122, 51, 255, 0.15);
+      font-weight: 600;
+    }
+
+    .notification-text {
+      flex-grow: 1;
+      margin-right: 10px;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .archive-btn {
+      flex-shrink: 0;
+      white-space: nowrap;
+      background: #3a00b5;
+      color: #c9a6ff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8em;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+
+    .archive-btn:hover:not(:disabled) {
+      background: #5b00e5;
+    }
+
+    .archive-btn.disabled {
+      background: #250080;
+      color: #7a33ff;
+      cursor: default;
+      opacity: 0.6;
+    }
+
+    .empty-message {
+      padding: 20px;
+      text-align: center;
+      color: #a36fff;
+      font-style: italic;
+      font-size: 1em;
+    }
+
+    /* 📱 RESPONSIVE NAVIGATION */
+    .mobile-icon {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .desktop-text {
+        display: none;
+      }
+
+      .mobile-icon {
+        display: inline;
+        font-size: 1.4em;
+      }
+
+      nav ul li button {
+        padding: 5px 10px;
+      }
+
+      nav ul {
+        gap: 1em;
+      }
+      
+      .hero h1 {
+        font-size: 2.5em;
+      }
+      
+      .movie-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5em;
+      }
+    }
+
+    /* 💬 CHATBOT WIDGET */
+    .chatbot-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1500;
+    }
+
+    .chat-tab-btn {
+      background: #ff007f;
+      border: none;
+      border-radius: 50%;
+      color: rgb(250, 250, 250);
+      width: 60px;
+      height: 60px;
+      font-size: 1.6em;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .chat-tab-btn:hover {
+      background: #ff3399;
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(255, 0, 127, 0.6);
+    }
+
+    .chat-window {
+      display: none;
+      position: absolute;
+      bottom: 75px;
+      right: 0;
+      width: 320px;
+      height: 420px;
+      background: #1a004d;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+      flex-direction: column;
+      border: 1px solid #7a33ff;
+    }
+
+    .chat-window.visible {
+      display: flex !important;
+    }
+
+    .chat-header {
+      background: linear-gradient(90deg, #7a33ff, #3a00b5);
+      color: white;
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-header h3 {
+      margin: 0;
+      font-size: 1.2em;
+    }
+
+    #closeChatBtn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.3em;
+      cursor: pointer;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+
+    #closeChatBtn:hover {
+      opacity: 1;
+    }
+
+    .chat-body {
+      flex-grow: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background-color: #0b012b;
+    }
+
+    .chat-message {
+      padding: 10px 14px;
+      border-radius: 18px;
+      margin-bottom: 12px;
+      max-width: 85%;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+
+    .bot-message {
+      background: linear-gradient(135deg, #3a00b5, #5b00e5);
+      color: white;
+      align-self: flex-start;
+      border-bottom-left-radius: 5px;
+    }
+
+    .user-message {
+      background: linear-gradient(135deg, #ff007f, #ff3399);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 5px;
+    }
+
+    .chat-footer {
+      display: flex;
+      padding: 12px;
+      border-top: 1px solid #7a33ff;
+      background-color: #1a004d;
+    }
+
+    #chatInput {
+      flex-grow: 1;
+      padding: 12px;
+      border: 1px solid #7a33ff;
+      border-radius: 25px;
+      margin-right: 10px;
+      background-color: #0b012b;
+      color: white;
+      font-size: 0.95em;
+    }
+
+    #chatSendBtn {
+      background: #ff007f;
+      border: none;
+      border-radius: 50%;
+      color: white;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    #chatSendBtn:hover {
+      background: #ff3399;
+    }
+
+    /* ===============================
+       ✨ Modern Modal Styling
+    ================================= */
+
+    /* Modal Background Overlay */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      overflow-y: auto;
+    }
+
+    /* Modal Box */
+    .modal-content {
+      background: linear-gradient(135deg, #1a0065 0%, #3a00b5 100%);
+      margin: 8% auto;
+      padding: 30px;
+      border-radius: 16px;
+      width: 85%;
+      max-width: 700px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      animation: fadeIn 0.4s ease;
+      position: relative;
+      font-family: 'Segoe UI', sans-serif;
+      border: 1px solid #7a33ff;
+    }
+
+    /* Close Button */
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      color: #c9a6ff;
+      font-size: 28px;
+      font-weight: bold;
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      color: #e74c3c;
+    }
+
+    /* Booking Item (each record) */
+    .booking-item {
+      background: rgba(255, 255, 255, 0.1);
+      border-left: 5px solid #3498db;
+      padding: 18px 22px;
+      margin-bottom: 18px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+    }
+
+    .booking-item:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Fade-in Animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 500px) {
+      .modal-content {
+        width: 92%;
+        padding: 20px;
+      }
+
+      .close-btn {
+        font-size: 24px;
+      }
+    }
+
+    /* Additional visual enhancements */
+    .movie a {
+      display: block;
+      overflow: hidden;
+      border-radius: 12px 12px 0 0;
+    }
+    
+    .movie-info {
+      padding: 15px;
+    }
+    
+    /* Logo styling */
+    .logo {
+      font-size: 1.8em;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 0 10px #a36fff, 0 0 20px #7a33ff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo::before {
+      content: "🎬";
+      font-size: 1.2em;
+    }
+/* 📱 MOBILE RESPONSIVE FIXES */
+@media (max-width: 768px) {
+  /* Base font size adjustment for mobile */
+  body {
+    font-size: 14px;
+  }
+  
+  /* Hero section text scaling */
+  .hero h1 {
+    font-size: 2em !important;
+    line-height: 1.3;
+    padding: 0 10px;
+  }
+  
+  .hero p {
+    font-size: 1.1em !important;
+    padding: 0 15px;
+  }
+  
+  /* Section headings */
+  #movies h2, #concerts h2 {
+    font-size: 1.8em !important;
+  }
+  
+  /* Movie titles and text */
+  .movie h3 {
+    font-size: 1.1em !important;
+  }
+  
+  .movie p {
+    font-size: 0.9em !important;
+  }
+  
+  /* Button text */
+  .button {
+    font-size: 1em !important;
+    padding: 0.8em 1.5em !important;
+  }
+  
+  /* Sidebar text */
+  .sidebar h2 {
+    font-size: 1.3em !important;
+  }
+  
+  .sidebar a {
+    font-size: 1em !important;
+  }
+  
+  /* Modal text */
+  .modal-content h2 {
+    font-size: 1.5em !important;
+  }
+  
+  /* Notification text */
+  .dropdown-content {
+    min-width: 280px !important;
+  }
+  
+  .notification-item-content {
+    font-size: 0.9em !important;
+    padding: 10px 12px !important;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  body {
+    font-size: 13px;
+  }
+  
+  .hero h1 {
+    font-size: 1.8em !important;
+  }
+  
+  .hero p {
+    font-size: 1em !important;
+  }
+  
+  #movies h2, #concerts h2 {
+    font-size: 1.6em !important;
+  }
+  
+  .movie-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5em !important;
+  }
+}
+
+/* Prevent text size adjustment on mobile rotation */
+html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Ensure proper viewport scaling */
+@viewport {
+  width: device-width;
+  zoom: 1.0;
+}
+
+/* Add smooth font rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+/* 📱 MOBILE NAVIGATION */
+@media (max-width: 768px) {
+  /* Hide Movies, Concerts, Plays buttons */
+  nav ul li:nth-child(1),  /* Movies */
+  nav ul li:nth-child(2),  /* Concerts */ 
+  nav ul li:nth-child(3) { /* Plays */
+    display: none;
+  }
+  
+  /* Adjust navigation layout */
+  nav ul {
+    justify-content: flex-end;
+    gap: 0.8em;
+  }
+  
+  /* Make login button more prominent on mobile */
+  nav ul li .login-btn {
+    padding: 8px 16px;
+    font-size: 0.9em;
+  }
+  
+  /* Optional: Adjust logo for better mobile appearance */
+  nav .logo {
+    font-size: 1.6em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 150px;
+  }
+  
+  /* Ensure proper spacing */
+  nav {
+    padding: 0.8em 4%;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+  nav .logo {
+    font-size: 1.2em;
+    max-width: 120px;
+  }
+  
+  nav ul li .login-btn {
+    padding: 6px 12px;
+    font-size: 0.85em;
+  }
+}
