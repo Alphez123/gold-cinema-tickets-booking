@@ -22,7 +22,7 @@ body {
     background:radial-gradient(circle at center, #4b00d1 0%, #1a0065 100%);
   background-image: 
     linear-gradient(to right, rgba(0, 49, 183, 0.6), transparent),
-    url('cinema.jpg');
+    url('/images/cinema.jpg');
  /* path to your image */
   background-size: cover;       /* makes the image fill the screen */
   background-repeat: no-repeat; /* prevents tiling */
